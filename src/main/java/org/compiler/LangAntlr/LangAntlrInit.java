@@ -4,6 +4,7 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
 import java.io.FileReader;
+import java.util.List;
 
 public class LangAntlrInit {
     public static void main(String[] args)
@@ -13,12 +14,15 @@ public class LangAntlrInit {
 
         //LangAntlrInitLexer lexer = new LangAntlrInitLexer(input);
 
-        LangAntlrSuperiorLexer lexer = new LangAntlrSuperiorLexer(input);
+        LangAntlrLexerImpl lexer = new LangAntlrLexerImpl(input);
+
 
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-        LangAntlrInitParser parser = new LangAntlrInitParser(tokens);
-        ParseTree tree = parser.prog(); // begin parsing at init rule
+
+
+        //LangAntlrInitParser parser = new LangAntlrInitParser(tokens);
+        //ParseTree tree = parser.prog(); // begin parsing at init rule
 
 
         //System.out.println(tree.toStringTree(parser)); // print LISP-style tree

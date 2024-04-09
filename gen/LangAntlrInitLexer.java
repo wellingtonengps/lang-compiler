@@ -1,4 +1,4 @@
-// Generated from D:/03 - Repositorio Local/03 - UFJF/06 - Compiladores/LangAntlr/lang-antlr/src/main/antlr4/org/compiler/LangAntlr/LangAntlrInit.g4 by ANTLR 4.13.1
+// Generated from D:/03 - Repositorio Local/03 - UFJF/06 - Compiladores/LangAntlr/lang-antlr/src/main/antlr4/org/compiler/LangAntlr/LangAntlrInitLexer.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -112,7 +112,7 @@ public class LangAntlrInitLexer extends Lexer {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "LangAntlrInit.g4"; }
+	public String getGrammarFileName() { return "LangAntlrInitLexer.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
