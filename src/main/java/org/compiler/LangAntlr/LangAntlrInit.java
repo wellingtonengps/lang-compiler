@@ -2,6 +2,7 @@ package org.compiler.LangAntlr;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
+import org.compiler.LangAntlr.utils.EmitToken;
 
 import java.io.FileReader;
 import java.util.List;
@@ -12,20 +13,14 @@ public class LangAntlrInit {
 
         ANTLRInputStream input = new ANTLRInputStream(new FileReader(args[0]));
 
-        //LangAntlrInitLexer lexer = new LangAntlrInitLexer(input);
-
-        LangAntlrLexerImpl lexer = new LangAntlrLexerImpl(input);
-
-
+        LangAntlrInitLexer lexer = new LangAntlrInitLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
+        tokens.fill();
 
-
-        //LangAntlrInitParser parser = new LangAntlrInitParser(tokens);
-        //ParseTree tree = parser.prog(); // begin parsing at init rule
-
-
-        //System.out.println(tree.toStringTree(parser)); // print LISP-style tree
+        for (Token token : tokens.getTokens()) {
+            EmitToken.emit(token);
+        }
 
     }
 }
