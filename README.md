@@ -32,7 +32,8 @@ Instale as dependências
 Utilizando o JAR:
 
 ```bash
-  java -cp target/lang-antlr-1-jar-with-dependencies.jar org.compiler.LangAntlr.LangAntlrInit
+  java -cp target/lang-antlr-1-jar-with-dependencies.jar org.compiler.LangAntlr.LangAntlrInit src/main/java/org/compiler/LangAntlr/sample.txt
+
 ```
 
 O prompt ficará aguardando a entrada de um código em Lang. Para sair, basta digitar `ctrl+d` para inserir um final de arquivo e finalizar.
