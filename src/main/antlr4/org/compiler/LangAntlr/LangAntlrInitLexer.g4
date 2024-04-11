@@ -56,9 +56,9 @@ NULL      :  '\'' '\\0' '\'' | 'null';
 ID        : CHAR (CHAR | NUMBER | '_')* ;
 FLOAT     : (NUMBER)* '.' (NUMBER)+ ;
 INT       : (NUMBER)+ ;
-LITERAL   : '\'' (CHAR | '\\n' | '\\t' | '\\\\' | UNICODE ) '\'';
+LITERAL   : '\'' (CHAR | '\\n' | '\\t' | '\\\\') '\'';
 CHAR      : LOWERCASE | UPPERCASE ;
 NUMBER    : [0-9] ;
 UPPERCASE : [A-Z] ;
 LOWERCASE : [a-z] ;
-UNICODE   : '\u0000'..'\u00FF';
+

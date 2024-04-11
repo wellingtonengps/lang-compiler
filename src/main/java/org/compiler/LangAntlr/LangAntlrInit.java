@@ -14,13 +14,11 @@ public class LangAntlrInit {
         ANTLRInputStream input = new ANTLRInputStream(new FileReader(args[0]));
 
         LangAntlrInitLexer lexer = new LangAntlrInitLexer(input);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-        tokens.fill();
-
-        for (Token token : tokens.getTokens()) {
-            EmitToken.emit(token);
-        }
+        Token token;
+        do {
+            token = lexer.nextToken();
+        } while (token.getType() != Token.EOF);
 
     }
 }
