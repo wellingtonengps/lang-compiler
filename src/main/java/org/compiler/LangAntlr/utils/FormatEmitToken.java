@@ -3,7 +3,7 @@ package org.compiler.LangAntlr.utils;
 import org.antlr.v4.runtime.Token;
 import org.compiler.LangAntlr.LangAntlrInitLexer;
 
-public class EmitToken {
+public class FormatEmitToken {
     public static void emit(Token token) {
         switch (token.getType()) {
             case LangAntlrInitLexer.ID:
