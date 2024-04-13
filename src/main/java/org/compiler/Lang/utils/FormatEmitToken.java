@@ -1,54 +1,54 @@
-package org.compiler.LangAntlr.utils;
+package org.compiler.Lang.utils;
 
 import org.antlr.v4.runtime.Token;
-import org.compiler.LangAntlr.LangAntlrInitLexer;
+import org.compiler.Lang.LangLexer;
 
 public class FormatEmitToken {
     public static void emit(Token token) {
         switch (token.getType()) {
-            case LangAntlrInitLexer.ID:
+            case LangLexer.ID:
                 System.out.println("ID : " + token.getText());
                 break;
-            case LangAntlrInitLexer.INT:
+            case LangLexer.INT:
                 System.out.println("INT : " + token.getText());
                 break;
-            case LangAntlrInitLexer.FLOAT:
+            case LangLexer.FLOAT:
                 System.out.println("FLOAT : " + token.getText());
                 break;
-            case LangAntlrInitLexer.CHAR:
+            case LangLexer.CHAR:
                 System.out.println("CHAR : " + token.getText());
                 break;
-            case LangAntlrInitLexer.BOOLEAN:
+            case LangLexer.BOOLEAN:
                 System.out.println("BOOLEAN : " + token.getText());
                 break;
-            case LangAntlrInitLexer.DATA:
+            case LangLexer.DATA:
                 System.out.println("DATA");
                 break;
-            case LangAntlrInitLexer.PRINT:
+            case LangLexer.PRINT:
                 System.out.println("PRINT");
                 break;
-            case LangAntlrInitLexer.IF:
+            case LangLexer.IF:
                 System.out.println("IF");
                 break;
-            case LangAntlrInitLexer.ELSE:
+            case LangLexer.ELSE:
                 System.out.println("ELSE");
                 break;
-            case LangAntlrInitLexer.ITERATE:
+            case LangLexer.ITERATE:
                 System.out.println("ITERATE");
                 break;
-            case LangAntlrInitLexer.TRUE:
+            case LangLexer.TRUE:
                 System.out.println("TRUE");
                 break;
-            case LangAntlrInitLexer.FALSE:
+            case LangLexer.FALSE:
                 System.out.println("FALSE");
                 break;
-            case LangAntlrInitLexer.NEW:
+            case LangLexer.NEW:
                 System.out.println("NEW");
                 break;
-            case LangAntlrInitLexer.READ:
+            case LangLexer.READ:
                 System.out.println("READ");
                 break;
-            case LangAntlrInitLexer.RETURN:
+            case LangLexer.RETURN:
                 System.out.println("RETURN");
                 break;
             default:

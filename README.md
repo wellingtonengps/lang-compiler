@@ -20,7 +20,7 @@ Clone o projeto
 Entre no diretório do projeto
 
 ```bash
-  cd lang-antlr4
+  cd lang-compiler
 ```
 
 ### Build do projeto sem script
@@ -42,19 +42,19 @@ Você deve passar o arquivo de entrada como argumento para o comando
 O arquivo JAR está localizado em target/lang-antlr-1-jar-with-dependencies.jar
 
 ```bash
-  java -cp target/lang-antlr-1-jar-with-dependencies.jar org.compiler.LangAntlr.LangAntlrInit <arquivo de entrada>
+  java -cp target/lang-compiler-1-jar-with-dependencies.jar org.compiler.Lang.LangInit <arquivo de entrada>
 ```
 
 Exemplo:
 
 ```bash
-  java -cp target/lang-antlr-1-jar-with-dependencies.jar org.compiler.LangAntlr.LangAntlrInit src/test/testes/lexico/certo/attrADD.lan
+  java -cp target/lang-compiler-1-jar-with-dependencies.jar org.compiler.Lang.LangInit src/test/testes/lexico/certo/attrADD.lan
 
 ```
 ### Build do projeto com script
 
 O script build.sh foi criado para facilitar a compilação do projeto, para executá-lo basta rodar o comando abaixo:
-Ele exculta o comando mvn clean package -DskipTests e depois executa o comando java -cp target/lang-antlr-1-jar-with-dependencies.jar org.compiler.LangAntlr.LangAntlrInit <arquivo de entrada>
+Ele exculta o comando mvn clean package -DskipTests e depois executa o comando java -cp target/lang-antlr-1-jar-with-dependencies.jar org.compiler.Lang.LangInit <arquivo de entrada>
 
 Você deve passar o arquivo de entrada como argumento para o script
 
@@ -64,5 +64,5 @@ Você deve passar o arquivo de entrada como argumento para o script
 Exemplo:
 
 ```bash
-  ./build.sh src/test/testes/lexico/certo/attrADD.lan
+  ./script.sh src/test/testes/lexico/certo/attrADD.lan
 ```

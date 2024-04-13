@@ -1,12 +1,11 @@
-package org.compiler.LangAntlr;
+package org.compiler.Lang;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
-import org.compiler.LangAntlr.LangAntlrInitLexer;
-import org.compiler.LangAntlr.utils.FormatEmitToken;
+import org.compiler.Lang.utils.FormatEmitToken;
 
-public class LangAntlrInitLexerImpl extends LangAntlrInitLexer {
-    public LangAntlrInitLexerImpl(CharStream input) {
+public class LangLexerImpl extends LangLexer {
+    public LangLexerImpl(CharStream input) {
         super(input);
     }
 

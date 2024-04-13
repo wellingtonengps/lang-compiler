@@ -1,23 +1,17 @@
-package org.compiler.LangAntlr;
+package org.compiler.Lang;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class LangAntlrInitLexerTest {
+public class LangInitLexerTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
@@ -41,7 +35,7 @@ public class LangAntlrInitLexerTest {
 
         String[] args = {"src/test/testes/lexico/errado/attrAND.lan"};
 
-        LangAntlrInit.main(args);
+        LangInit.main(args);
 
         System.setOut(originalOut);
 
@@ -57,7 +51,7 @@ public class LangAntlrInitLexerTest {
 
         String[] args = {"src/test/testes/lexico/certo/" + file};
 
-        LangAntlrInit.main(args);
+        LangInit.main(args);
 
         System.setOut(originalOut);
 

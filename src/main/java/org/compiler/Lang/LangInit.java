@@ -1,19 +1,16 @@
-package org.compiler.LangAntlr;
+package org.compiler.Lang;
 
 import org.antlr.v4.runtime.*;
 
-import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
 
-public class LangAntlrInit {
+public class LangInit {
     public static void main(String[] args)
             throws Exception {
 
         ANTLRInputStream input = new ANTLRInputStream(new FileReader(args[0]));
 
-        LangAntlrInitLexerImpl lexer = new LangAntlrInitLexerImpl(input);
+        LangLexerImpl lexer = new LangLexerImpl(input);
 
         Token token;
         do {

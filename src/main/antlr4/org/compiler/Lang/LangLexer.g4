@@ -1,4 +1,4 @@
-lexer grammar LangAntlrInitLexer;
+lexer grammar LangLexer;
 
 DATA      : 'data' ;
 PRINT     : 'print' ;
