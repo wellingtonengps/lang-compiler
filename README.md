@@ -14,7 +14,7 @@ Java, Antlr4
 Clone o projeto
 
 ```bash
-  git clone https://github.com/wellingtonengps/lang-antlr4
+  git clone https://github.com/wellingtonengps/lang-compiler
 ```
 
 Entre no diretório do projeto
