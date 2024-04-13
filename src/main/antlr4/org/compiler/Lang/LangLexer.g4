@@ -1,3 +1,8 @@
+/*
+* Gustavo De Angelis Bartholomeu (201935009)
+* Wellington Pereira Silva (201935041)
+* */
+
 lexer grammar LangLexer;
 
 DATA      : 'data' ;

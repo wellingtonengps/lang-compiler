@@ -1,3 +1,7 @@
+/*
+ * Gustavo De Angelis Bartholomeu (201935009)
+ * Wellington Pereira Silva (201935041)
+ * */
 package org.compiler.Lang.utils;
 
 import org.antlr.v4.runtime.Token;
