@@ -23,17 +23,46 @@ Entre no diretório do projeto
   cd lang-antlr4
 ```
 
-Instale as dependências
+### Build do projeto sem script
 
 ```bash
   mvn clean package
 ```
 
-Utilizando o JAR:
+Build do projeto sem testes
 
 ```bash
-  java -cp target/lang-antlr-1-jar-with-dependencies.jar org.compiler.LangAntlr.LangAntlrInit src/main/java/org/compiler/LangAntlr/sample.txt
-
+  mvn clean package -DskipTests
 ```
 
-O prompt ficará aguardando a entrada de um código em Lang. Para sair, basta digitar `ctrl+d` para inserir um final de arquivo e finalizar.
+Utilizando o JAR:
+
+Você deve passar o arquivo de entrada como argumento para o comando
+
+O arquivo JAR está localizado em target/lang-antlr-1-jar-with-dependencies.jar
+
+```bash
+  java -cp target/lang-antlr-1-jar-with-dependencies.jar org.compiler.LangAntlr.LangAntlrInit <arquivo de entrada>
+```
+
+Exemplo:
+
+```bash
+  java -cp target/lang-antlr-1-jar-with-dependencies.jar org.compiler.LangAntlr.LangAntlrInit src/test/testes/lexico/certo/attrADD.lan
+
+```
+### Build do projeto com script
+
+O script build.sh foi criado para facilitar a compilação do projeto, para executá-lo basta rodar o comando abaixo:
+Ele exculta o comando mvn clean package -DskipTests e depois executa o comando java -cp target/lang-antlr-1-jar-with-dependencies.jar org.compiler.LangAntlr.LangAntlrInit <arquivo de entrada>
+
+Você deve passar o arquivo de entrada como argumento para o script
+
+```bash
+  ./script.sh <arquivo de entrada>
+```
+Exemplo:
+
+```bash
+  ./build.sh src/test/testes/lexico/certo/attrADD.lan
+```
