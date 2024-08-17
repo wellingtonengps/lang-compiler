@@ -1,4 +1,4 @@
-package lang.ast;
+package org.compiler.Lang.syntactic.lang.ast;
 
 public abstract class SuperNode {
    
