@@ -4,6 +4,7 @@
 * */
 package org.compiler.Lang;
 
+import org.compiler.Lang.lexer.LangInit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
