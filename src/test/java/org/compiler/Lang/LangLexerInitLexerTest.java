@@ -16,7 +16,7 @@ import java.io.PrintStream;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class LangInitLexerTest {
+public class LangLexerInitLexerTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
@@ -39,6 +39,7 @@ public class LangInitLexerTest {
         System.setErr(new PrintStream(errContent));
 
         String[] args = {"src/test/testes/lexico/errado/attrAND.lan"};
+
 
         LangInit.main(args);
 

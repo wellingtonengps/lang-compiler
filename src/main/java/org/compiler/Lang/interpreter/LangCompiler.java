@@ -1,8 +1,9 @@
-package org.compiler.Lang.syntactic;
+package org.compiler.Lang.interpreter;
 
+import org.compiler.Lang.syntactic.LangParserImpl;
 import org.compiler.Lang.syntactic.parser.TestParser;
 
-public class LangCompiler{
+public class LangCompiler {
    // Recupera o nome base (sem extensão) de um arquivo.
    public static void main(String[] args){
        if( args.length < 1 ){

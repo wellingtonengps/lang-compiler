@@ -1,6 +1,6 @@
-package org.compiler.Lang.syntactic.lang.parser;
+package org.compiler.Lang.syntactic.parser;
 
-import org.compiler.Lang.syntactic.lang.ast.SuperNode;
+import lang.ast.SuperNode;
 
 import java.io.IOException;
 

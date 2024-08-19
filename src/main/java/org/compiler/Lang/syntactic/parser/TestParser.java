@@ -1,4 +1,4 @@
-package org.compiler.Lang.syntactic.lang.parser;
+package org.compiler.Lang.syntactic.parser;
 
 import java.io.*;
 
@@ -6,7 +6,7 @@ import java.io.*;
 
 public class TestParser {
    private ParseAdaptor adp;
-   private String okSrcs = "testes/sintaxe/certo/";
+   private String okSrcs = "/testes/sintaxe/certo/";
    private File f;
    
    public TestParser(ParseAdaptor adp){

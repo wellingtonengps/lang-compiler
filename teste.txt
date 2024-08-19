@@ -1,0 +1,20 @@
+
+    public static void main(String[] args)
+            throws Exception {
+
+        /*
+        *   ANTLRInputStream input = new ANTLRInputStream(new FileReader(args[0]));
+
+        LangLexerImpl lexer = new LangLexerImpl(input);
+
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+        LangParser parser = new LangParser(tokens);
+        ParseTree tree = parser.prog(); // begin parsing at init rule
+
+
+        System.out.println(tree.toStringTree(parser)); // print LISP-style tree
+        * */
+
+
+    }
