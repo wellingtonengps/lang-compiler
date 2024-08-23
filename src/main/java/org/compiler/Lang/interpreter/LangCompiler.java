@@ -29,11 +29,12 @@ public class LangCompiler {
            //LangLexerInit lexer = new LangLexerInit(args);
 
            LangParserImpl langParser = new LangParserImpl();
+           InterpreterAdaptorImpl interpreterAdaptorImpl = new InterpreterAdaptorImpl();
            //langParser.parseFile(args[0]);
 	   //ParseAdaptor langParser = null;
           if(args[0].equals("-bs") ){
               System.out.println("Executando bateria de testes sintáticos:");
-              TestParser tp = new TestParser(langParser);
+              //TestParser tp = new TestParser(langParser);
               return;
           }if(args[0].equals("-byt") ){
               System.out.println("Executando bateria de testes sintáticos:");
@@ -41,14 +42,14 @@ public class LangCompiler {
               return;
           } if(args[0].equals("-bsm") ){
               System.out.println("Executando bateria de testes sintáticos:");
-              // TestParser tp = new TestParser(langParser); 
+              TestInterpreter tp = new TestInterpreter(interpreterAdaptorImpl);
               return;
           }
           if(args.length != 2){
               System.out.println("Para usar essa opção, especifique um nome de arquivo");
               return; 
           }
-          lang.ast.SuperNode result = langParser.parseFile(args[1]);
+          org.compiler.Lang.interpreter.ast.SuperNode result = langParser.parseFile(args[1]);
           if(result == null){
                System.err.println("Aborting due to syntax error(s)");
                System.exit(1);

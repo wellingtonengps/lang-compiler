@@ -66,3 +66,4 @@ Exemplo:
 ```bash
   ./run_lexer.sh src/test/testes/lexico/certo/attrADD.lan
 ```
+ 

@@ -1,6 +1,6 @@
-package org.compiler.Lang.syntactic.parser;
+package org.compiler.Lang.interpreter.parser;
 
-import java.io.*;
+import java.io.File;
 
 // Adaptador para classe de parser. a Função parseFile deve retornar null caso o parser resulte em erro. 
 

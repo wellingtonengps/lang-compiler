@@ -1,6 +1,9 @@
 package org.compiler.Lang.syntactic.ast;
 
-public class Node extends lang.ast.SuperNode {
+import org.compiler.Lang.interpreter.ast.SuperNode;
+
+
+public class Node extends SuperNode {
 
     private int line;
     private int column;

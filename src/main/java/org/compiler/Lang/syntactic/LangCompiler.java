@@ -47,7 +47,7 @@ public class LangCompiler{
               System.out.println("Para usar essa opção, especifique um nome de arquivo");
               return; 
           }
-          lang.ast.SuperNode result = langParser.parseFile(args[1]);
+          org.compiler.Lang.interpreter.ast.SuperNode result = langParser.parseFile(args[1]);
           if(result == null){
                System.err.println("Aborting due to syntax error(s)");
                System.exit(1);
