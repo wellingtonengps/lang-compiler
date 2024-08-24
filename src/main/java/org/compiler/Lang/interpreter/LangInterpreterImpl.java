@@ -9,7 +9,7 @@ import org.compiler.Lang.interpreter.ast.SuperNode;
 
 import java.io.IOException;
 
-public class InterpreterAdaptorImpl implements InterpreterAdaptor{
+public class LangInterpreterImpl implements InterpreterAdaptor{
 
     @Override
     public SuperNode interpretFile(String path) {
@@ -45,6 +45,8 @@ public class InterpreterAdaptorImpl implements InterpreterAdaptor{
             // Cria a árvore da sintaxe padrão (PARSETREE)
             ParseTree tree = parser.prog();
 
+            //System.out.println(tree.toStringTree(parser));
+
             // Verifica se o analisador sintático encontrou erros
             if (parser.getNumberOfSyntaxErrors() != 0) {
                 return null;
@@ -57,6 +59,7 @@ public class InterpreterAdaptorImpl implements InterpreterAdaptor{
             // Passa um objeto do tipo parseTree e retorna do tipo Node
             // Visita a árvore
             Node node = ast.visit(tree);
+
 
             // Interpreta o Visitor e elabora o ambiente de desenvolvimento
             InterpreterVisitor interpreter = new InterpreterVisitor();

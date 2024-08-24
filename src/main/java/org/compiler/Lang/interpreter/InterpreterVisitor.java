@@ -4,7 +4,7 @@ import org.compiler.Lang.interpreter.ast.*;
 
 import java.util.*;
 
-public class InterpreterVisitor  extends Visitor{
+public class InterpreterVisitor extends Visitor{
     private Stack<HashMap<String, Object>> env; // Escopo de variaveis de objetos
     private HashMap<String, Function> funcs; // Funções da linguagem lang
     private HashMap<String, Data> datas; // Tipos de dados novos
@@ -13,7 +13,7 @@ public class InterpreterVisitor  extends Visitor{
     private Stack<Object> parms; // Parametros de funções
     private boolean retMode, debug;
 
-    public void InterpretVisitor() {
+    public InterpreterVisitor() {
         env = new Stack<HashMap<String, Object>>();
         env.push(new HashMap<String, Object>());
         funcs = new HashMap<String, Function>();
@@ -68,6 +68,7 @@ public class InterpreterVisitor  extends Visitor{
 
         for (Function f : p.getFunctions()) {
             funcs.put(f.getId(), f);
+            System.out.printf(f.getId());
             if (f.getId().equals("main")) {     // Verifica se tem a função main
                 main = f;
             }

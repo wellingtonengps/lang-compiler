@@ -1,7 +1,9 @@
 package org.compiler.Lang.interpreter;
 
+import org.compiler.Lang.interpreter.ast.Node;
+import org.compiler.Lang.interpreter.ast.SuperNode;
+import org.compiler.Lang.interpreter.parser.TestParser;
 import org.compiler.Lang.syntactic.LangParserImpl;
-import org.compiler.Lang.syntactic.parser.TestParser;
 
 public class LangCompiler {
    // Recupera o nome base (sem extensão) de um arquivo.
@@ -29,27 +31,27 @@ public class LangCompiler {
            //LangLexerInit lexer = new LangLexerInit(args);
 
            LangParserImpl langParser = new LangParserImpl();
-           InterpreterAdaptorImpl interpreterAdaptorImpl = new InterpreterAdaptorImpl();
+           LangInterpreterImpl langInterpreterImpl = new LangInterpreterImpl();
            //langParser.parseFile(args[0]);
 	   //ParseAdaptor langParser = null;
           if(args[0].equals("-bs") ){
               System.out.println("Executando bateria de testes sintáticos:");
-              //TestParser tp = new TestParser(langParser);
+              TestParser tp = new TestParser(langParser);
               return;
-          }if(args[0].equals("-byt") ){
+          }/*if(args[0].equals("-byt") ){
               System.out.println("Executando bateria de testes sintáticos:");
               // TestParser tp = new TestParser(langParser); ;
               return;
-          } if(args[0].equals("-bsm") ){
-              System.out.println("Executando bateria de testes sintáticos:");
-              TestInterpreter tp = new TestInterpreter(interpreterAdaptorImpl);
+          }*/ if(args[0].equals("-bsm") ){
+              System.out.println("Executando bateria de testes semântico:");
+              TestInterpreter tp = new TestInterpreter(langInterpreterImpl);
               return;
           }
           if(args.length != 2){
               System.out.println("Para usar essa opção, especifique um nome de arquivo");
               return; 
           }
-          org.compiler.Lang.interpreter.ast.SuperNode result = langParser.parseFile(args[1]);
+          SuperNode result = langParser.parseFile(args[1]);
           if(result == null){
                System.err.println("Aborting due to syntax error(s)");
                System.exit(1);
@@ -58,6 +60,10 @@ public class LangCompiler {
               //iv = new InterpreterVisitor();
               //result.accept(iv);
               //((InterpreterVisitor)iv).printEnv();
+
+              InterpreterVisitor interpreter = new InterpreterVisitor();
+              ((Node)result).accept(interpreter);
+              interpreter.debugMode();
           }
           else if(args[0].equals("-ii") ){
             // iv = new InteractiveInterpreterVisitor();

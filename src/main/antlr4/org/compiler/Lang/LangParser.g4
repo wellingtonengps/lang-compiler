@@ -20,7 +20,7 @@ type: type OPEN_BRACKET CLOSE_BRACKET
 btype: BTYPE
        | TYPE;
 
-cmd: OPEN_CURLY_BRACER (cmd)* CLOSE_CURLY_BRACER #brances
+cmd: OPEN_CURLY_BRACER (cmd)* CLOSE_CURLY_BRACER #commandsList
      | IF OPEN_PARENTESIS exp CLOSE_PARENTESIS cmd #if
      | IF OPEN_PARENTESIS exp CLOSE_PARENTESIS ifcmd=cmd ELSE elsecmd=cmd #ifElse
      | ITERATE OPEN_PARENTESIS exp CLOSE_PARENTESIS cmd #iterate

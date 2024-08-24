@@ -1,8 +1,7 @@
 /*
 * Gustavo De Angelis Bartholomeu (201935009)
 * Wellington Pereira Silva (201935041)
-* */
-
+*/
 lexer grammar LangLexer;
 
 DATA      : 'data' ;
@@ -62,8 +61,17 @@ ID        : CHAR (CHAR | NUMBER | '_')* ;
 FLOAT     : (NUMBER)* '.' (NUMBER)+ ;
 INT       : (NUMBER)+ ;
 LITERAL   : '\'' (CHAR | '\\n' | '\\t' | '\\\\') '\'';
-CHAR      : LOWERCASE | UPPERCASE ;
+CHAR      : LOWERCASE | UPPERCASE | ('\''([\u0000-\u0026]|[\u0028-\u005B]|[\u005D-\u007F])'\'') ;
+/*CHAR: ('\''([\u0000-\u0026]|[\u0028-\u005B]|[\u005D-\u007F])'\'')       // (000 - 127)(Menos o 27 => aspas simples ' e nem 97 => Contrabarra \ ) Captura todos os caracteres da tabela ASCII, conforme a especificação da linguagem
+    | ('\'''\\n''\'')           // '\n' => Contrabarra_n
+    | ('\'''\\t''\'')           // '\t' => Contrabarra_t
+    | ('\'''\\b''\'')           // '\b' => Contrabarra_b
+    | ('\'''\\r''\'')           // '\r' => Contrabarra_r
+    | ('\'''\\\\''\'')          // Especifica '\\' que é a '\' => Contrabarra
+    | ('\'\\\'\'')              // Especifica a aspas simples: "\\\'" => \' => '
+    ;*/
 NUMBER    : [0-9] ;
 UPPERCASE : [A-Z] ;
 LOWERCASE : [a-z] ;
+
 

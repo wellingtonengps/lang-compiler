@@ -1,6 +1,6 @@
 package org.compiler.Lang.syntactic;
 
-import org.compiler.Lang.syntactic.parser.TestParser;
+import org.compiler.Lang.interpreter.parser.TestParser;
 
 public class LangCompiler{
    // Recupera o nome base (sem extensão) de um arquivo.

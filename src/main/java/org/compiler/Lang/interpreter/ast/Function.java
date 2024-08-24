@@ -15,9 +15,9 @@ import java.util.List;
 public class Function extends Node{
     /**
      * ---- Regra
-     * func: ID OPEN_PARENT params? CLOSE_PARENT (COLON type (COMMA type)*)? 
+     * func: ID OPEN_PARENT params? CLOSE_PARENT (COLON type (COMMA type)*)?
      * OPEN_BRACES cmd* CLOSE_BRACES    # Function
-    */
+     */
     private String id;
     private Parameters parameters;
     private List<Type> returnTypes;     // Tipos de retorno da função
@@ -38,7 +38,7 @@ public class Function extends Node{
         this.returnTypes = new ArrayList<Type>();
         this.commands = new ArrayList<Command>();
     }
-      
+
     public String getId() {
         return id;
     }
@@ -105,5 +105,4 @@ public class Function extends Node{
     public void accept(Visitor v) {
         v.visit(this);
     }
-
 }
