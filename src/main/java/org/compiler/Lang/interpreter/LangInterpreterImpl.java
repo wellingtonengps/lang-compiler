@@ -45,7 +45,7 @@ public class LangInterpreterImpl implements InterpreterAdaptor{
             // Cria a árvore da sintaxe padrão (PARSETREE)
             ParseTree tree = parser.prog();
 
-            //System.out.println(tree.toStringTree(parser));
+            System.out.println(tree.toStringTree(parser));
 
             // Verifica se o analisador sintático encontrou erros
             if (parser.getNumberOfSyntaxErrors() != 0) {

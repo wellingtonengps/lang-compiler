@@ -55,7 +55,6 @@ sexp:  NOT sexp #not
      | INT #int
      | FLOAT #float
      | CHAR #char
-     | LITERAL #literal
      | pexp #acessorValue;
 
 pexp: lvalue #value

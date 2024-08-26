@@ -180,6 +180,7 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node>{
     public Node visitPrint(LangParser.PrintContext ctx) {
         // ----- Regra
         // cmd: PRINT exp SEMI    # Print
+        //Expression expression = (Expression) ctx.exp().accept(this);
         Expression expression = (Expression) ctx.exp().accept(this);
         return new Print(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), expression);
     }
@@ -375,21 +376,14 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node>{
     public Node visitChar(LangParser.CharContext ctx) {
         // ----- Regra
         // btype: CHAR_TYPE     # BTypeChar
-        int line = ctx.getStart().getLine();
+        /*int line = ctx.getStart().getLine();
         int column = ctx.getStart().getCharPositionInLine();
-        return new TypeChar(line, column);
+        return new TypeChar(line, column);*/
+
+        return new CharLitteral(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
+                ctx.CHAR().getText());
     }
 
-    @Override
-    public Node visitLiteral(LangParser.LiteralContext ctx) {
-        // ----- Regra
-        // sexp: CHAR   # CharLitteral
-        // Se atentar e lembrar que tem '\n', '\t'...
-        // return new CharLitteral(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
-        // ctx.CHAR().getText().charAt(1));
-        return new CharLitteral(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
-                ctx.LITERAL().getText());
-    }
 
     @Override
     public Node visitAcessorValue(LangParser.AcessorValueContext ctx) {
