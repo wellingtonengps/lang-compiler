@@ -14,12 +14,15 @@ params: ID DOUBLE_COLON type (COMMA ID DOUBLE_COLON type)*;
 //params: param (COMMA param)*;
 //param: ID DOUBLE_COLON type;
 
-type: type OPEN_BRACKET CLOSE_BRACKET
-      | btype
+type: type OPEN_BRACKET CLOSE_BRACKET #typeVector
+      | btype #typeBase
       ;
 
-btype: BTYPE
-       | TYPE;
+btype: TYPE_INT #typeInt
+      | TYPE_FLOAT #typeFloat
+      | TYPE_CHAR  #typeChar
+      | TYPE_BOOL #typeBool
+      ;
 
 cmd: OPEN_CURLY_BRACER (cmd)* CLOSE_CURLY_BRACER #commandsList
      | IF OPEN_PARENTESIS exp CLOSE_PARENTESIS cmd #if
@@ -36,7 +39,7 @@ cmd: OPEN_CURLY_BRACER (cmd)* CLOSE_CURLY_BRACER #commandsList
 exp: exp AND exp #andExp
      | rexp #logicsExprs;
 
-exps: exp (COMMA exp)*;
+
 
 rexp: left=rexp op=(LESS_THAN | MORE_THAN | EQUAL | NOT_EQUAL)  right=aexp # LogicExp
       | aexp #basicsExprs;
@@ -66,3 +69,4 @@ lvalue: ID #id
        | lvalue OPEN_BRACKET exp CLOSE_BRACKET #idVector
        | lvalue ACCESSOR ID #acessorID;
 
+exps: exp (COMMA exp)*;

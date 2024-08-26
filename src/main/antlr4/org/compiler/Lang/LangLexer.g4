@@ -29,11 +29,11 @@ MORE_THAN           : '>' ;
 EQUAL               : '==' ;
 NOT_EQUAL           : '!=' ;
 
-BTYPE: Int | Float | Char | Bool;
-Int   : 'Int';
-Float : 'Float';
-Char  : 'Char';
-Bool  : 'Bool';
+
+TYPE_INT   : 'Int' ;
+TYPE_FLOAT : 'Float' ;
+TYPE_CHAR  : 'Char';
+TYPE_BOOL  : 'Bool';
 
 OPEN_PARENTESIS     : '(' ;
 CLOSE_PARENTESIS    : ')' ;

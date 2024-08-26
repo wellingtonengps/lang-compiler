@@ -115,10 +115,39 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node>{
     }
 
     @Override
-    public Node visitBtype(LangParser.BtypeContext ctx) {
+    public Node visitTypeInt(LangParser.TypeIntContext ctx) {
         // ----- Regra
-        // type: btype     # BTypeCall
-        return super.visitBtype(ctx);
+        // btype: INT_TYPE     # BTypeInt
+        int line = ctx.getStart().getLine();
+        int column = ctx.getStart().getCharPositionInLine();
+        return new TypeInt(line, column);
+    }
+
+    @Override
+    public Node visitTypeFloat(LangParser.TypeFloatContext ctx) {
+        // ----- Regra
+        // btype: FLOAT_TYPE    # BTypeFloat
+        int line = ctx.getStart().getLine();
+        int column = ctx.getStart().getCharPositionInLine();
+        return new TypeFloat(line, column);
+    }
+
+    @Override
+    public Node visitTypeChar(LangParser.TypeCharContext ctx) {
+        // ----- Regra
+        // btype: CHAR_TYPE     # BTypeChar
+        int line = ctx.getStart().getLine();
+        int column = ctx.getStart().getCharPositionInLine();
+        return new TypeChar(line, column);
+    }
+
+    @Override
+    public Node visitTypeBool(LangParser.TypeBoolContext ctx) {
+        // ----- Regra
+        // btype: BOOL_TYPE     # BTypeBool
+        int line = ctx.getStart().getLine();
+        int column = ctx.getStart().getCharPositionInLine();
+        return new TypeBool(line, column);
     }
 
     public Node visitCommandsList(LangParser.CommandsListContext ctx) {
@@ -228,12 +257,18 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node>{
         return fcall;
     }
 
+
     @Override
-    public Node visitType(LangParser.TypeContext ctx) {
+    public Node visitTypeVector(LangParser.TypeVectorContext ctx) {
         // ----- Regra --- TIPO DE ARRAY NOS PARAMETROS DE FUNCAO
         // type: type OPEN_BRACKET CLOSE_BRACKET   # TypeDeclaration
         Type type = (Type) ctx.type().accept(this);
         return new TypeArray(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), type);
+    }
+
+    @Override
+    public Node visitTypeBase(LangParser.TypeBaseContext ctx) {
+        return super.visitTypeBase(ctx);
     }
 
     @Override
