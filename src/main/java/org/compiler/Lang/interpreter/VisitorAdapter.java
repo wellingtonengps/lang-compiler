@@ -116,6 +116,8 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node>{
 
     @Override
     public Node visitBtype(LangParser.BtypeContext ctx) {
+        // ----- Regra
+        // type: btype     # BTypeCall
         return super.visitBtype(ctx);
     }
 
@@ -135,12 +137,23 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node>{
 
     @Override
     public Node visitIf(LangParser.IfContext ctx) {
-        return super.visitIf(ctx);
+        // ----- Regra
+        // cmd: IF OPEN_PARENT exp CLOSE_PARENT cmd   # If
+        Expression exp = (Expression) ctx.getChild(2).accept(this);
+        Command cmd = (Command) ctx.getChild(4).accept(this);
+
+        return new If(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), exp, cmd);
     }
 
     @Override
     public Node visitIfElse(LangParser.IfElseContext ctx) {
-        return super.visitIfElse(ctx);
+        // ----- Regra
+        // cmd: IF OPEN_PARENT exp CLOSE_PARENT cmd ELSE cmd  # IfElse
+        Expression exp = (Expression) ctx.getChild(2).accept(this);
+        Command cmd = (Command) ctx.getChild(4).accept(this);
+        Command elseCmd = (Command) ctx.getChild(6).accept(this);
+
+        return new IfElse(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), exp, cmd, elseCmd);
     }
 
     @Override
@@ -155,7 +168,12 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node>{
 
     @Override
     public Node visitRead(LangParser.ReadContext ctx) {
-        return super.visitRead(ctx);
+        // ----- Regra
+        // cmd: READ lvalue SEMI  # Read
+        LValue lValue = (LValue) ctx.getChild(1).accept(this);
+        int line = ctx.getStart().getLine();
+        int column = ctx.getStart().getCharPositionInLine();
+        return new Read(line, column, lValue);
     }
 
     @Override
@@ -168,7 +186,15 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node>{
 
     @Override
     public Node visitReturn(LangParser.ReturnContext ctx) {
-        return super.visitReturn(ctx);
+        // ----- Regra
+        // cmd: RETURN exp (COMMA exp)* SEMI  # Return
+        List<Expression> exps = new ArrayList<Expression>();
+
+        for (int i = 0; i < ctx.exps().exp().size(); i++) {
+            exps.add((Expression) ctx.exps().exp().get(i).accept(this));
+        }
+
+        return new Return(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), exps);
     }
 
     @Override
@@ -181,27 +207,50 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node>{
 
     @Override
     public Node visitLessThan(LangParser.LessThanContext ctx) {
-        return super.visitLessThan(ctx);
+        // ----- Regra
+        // cmd: ID OPEN_PARENT exps? CLOSE_PARENT (LESS_THAN lvalue (COMMA lvalue)* GREATER_THAN)? SEMI   # FunctionCall
+
+        FunctionCall fcall = new FunctionCall(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.getChild(0).getText());
+
+        // Verifica se há parametros na função
+        if (ctx.acessParams != null) {
+            FCallParams exps = (FCallParams) ctx.exps().accept(this);
+
+            fcall = new FunctionCall(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.getChild(0).getText(), exps);
+        }
+
+        for (int i = 0; i < ctx.lvalue().size() && this.shouldVisitNextChild(ctx, this.defaultResult()); i++) {
+            ParseTree childTree = ctx.lvalue(i);
+            fcall.addLValue((LValue) this.aggregateResult(this.defaultResult(), childTree.accept(this)));
+        }
+
+        return fcall;
     }
 
     @Override
     public Node visitType(LangParser.TypeContext ctx) {
-        return super.visitType(ctx);
-    }
-
-    @Override
-    public Node visitParam(LangParser.ParamContext ctx) {
-        return super.visitParam(ctx);
+        // ----- Regra --- TIPO DE ARRAY NOS PARAMETROS DE FUNCAO
+        // type: type OPEN_BRACKET CLOSE_BRACKET   # TypeDeclaration
+        Type type = (Type) ctx.type().accept(this);
+        return new TypeArray(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), type);
     }
 
     @Override
     public Node visitParams(LangParser.ParamsContext ctx) {
-        return super.visitParams(ctx);
-    }
+        // ----- Regra
+        // params: ID DOUBLE_COLON type (COMMA ID DOUBLE_COLON type)*  # ParametersFunction
 
-    @Override
-    public Node visitLvalues(LangParser.LvaluesContext ctx) {
-        return super.visitLvalues(ctx);
+        List<String> ids = new ArrayList<>();
+        List<Type> types = new ArrayList<>();
+
+        for (int i = 0; i < ctx.type().size(); i++) {   // Encontra os ids e os tipos e armazena na classe Parameter
+            ids.add(ctx.ID().get(i).getText());
+            types.add((Type) ctx.type().get(i).accept(this));
+        }
+
+        Parameters parameters = new Parameters(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ids, types);
+
+        return parameters;
     }
 
     @Override
@@ -216,16 +265,25 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node>{
 
     @Override
     public Node visitLogicsExprs(LangParser.LogicsExprsContext ctx) {
+        // ----- Regra
+        // exp: rexp      # RExpCall
         return super.visitLogicsExprs(ctx);
     }
 
     @Override
     public Node visitLogicExp(LangParser.LogicExpContext ctx) {
-        return super.visitLogicExp(ctx);
+        // ----- Regra
+        // rexp: <assoc=left> rexp EQUALITY aexp    # Equality
+        Expression left = (Expression) ctx.getChild(0).accept(this);
+        Expression right = (Expression) ctx.getChild(2).accept(this);
+
+        return new Equality(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), left, right);
     }
 
     @Override
     public Node visitBasicsExprs(LangParser.BasicsExprsContext ctx) {
+        // ----- Regra
+        // rexp: aexp      # AExpCall
         return super.visitBasicsExprs(ctx);
     }
 
@@ -236,16 +294,25 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node>{
 
     @Override
     public Node visitMoreExprs(LangParser.MoreExprsContext ctx) {
+        // ----- Regra
+        // aexp: mexp      # MExpCall
         return super.visitMoreExprs(ctx);
     }
 
     @Override
     public Node visitMultDivMod(LangParser.MultDivModContext ctx) {
-        return super.visitMultDivMod(ctx);
+        // ----- Regra
+        // mexp: <assoc=left> mexp TIMES sexp   # MultiplicationOperation
+        Expression left = (Expression) ctx.getChild(0).accept(this);
+        Expression right = (Expression) ctx.getChild(2).accept(this);
+
+        return new Multiplication(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), left, right);
     }
 
     @Override
     public Node visitLiteralExprs(LangParser.LiteralExprsContext ctx) {
+        // ----- Regra
+        // mexp: sexp   # SExpCall
         return super.visitLiteralExprs(ctx);
     }
 
@@ -306,12 +373,22 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node>{
 
     @Override
     public Node visitChar(LangParser.CharContext ctx) {
-        return super.visitChar(ctx);
+        // ----- Regra
+        // btype: CHAR_TYPE     # BTypeChar
+        int line = ctx.getStart().getLine();
+        int column = ctx.getStart().getCharPositionInLine();
+        return new TypeChar(line, column);
     }
 
     @Override
     public Node visitLiteral(LangParser.LiteralContext ctx) {
-        return super.visitLiteral(ctx);
+        // ----- Regra
+        // sexp: CHAR   # CharLitteral
+        // Se atentar e lembrar que tem '\n', '\t'...
+        // return new CharLitteral(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
+        // ctx.CHAR().getText().charAt(1));
+        return new CharLitteral(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
+                ctx.LITERAL().getText());
     }
 
     @Override

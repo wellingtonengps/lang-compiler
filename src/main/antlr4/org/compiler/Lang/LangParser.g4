@@ -10,12 +10,13 @@ decl: ID DOUBLE_COLON type SEMICOLON;
 
 func: ID OPEN_PARENTESIS (params)? CLOSE_PARENTESIS (COLON type (COMMA type)*)? OPEN_CURLY_BRACER (cmd)* CLOSE_CURLY_BRACER;
 
-params: param (COMMA param)*;
-
-param: ID DOUBLE_COLON type;
+params: ID DOUBLE_COLON type (COMMA ID DOUBLE_COLON type)*;
+//params: param (COMMA param)*;
+//param: ID DOUBLE_COLON type;
 
 type: type OPEN_BRACKET CLOSE_BRACKET
-      | btype;
+      | btype
+      ;
 
 btype: BTYPE
        | TYPE;
@@ -28,12 +29,14 @@ cmd: OPEN_CURLY_BRACER (cmd)* CLOSE_CURLY_BRACER #commandsList
      | PRINT exp SEMICOLON #print
      | RETURN exps SEMICOLON #return
      | lvalue ATTRIBUTION exp SEMICOLON #assing
-     | ID OPEN_PARENTESIS (acessParams=exps)? CLOSE_PARENTESIS (LESS_THAN (acessReturn=lvalues)? MORE_THAN)? SEMICOLON #lessThan;
+     | ID OPEN_PARENTESIS (acessParams=exps)? CLOSE_PARENTESIS (LESS_THAN (COMMA acessReturn=lvalue)* MORE_THAN)? SEMICOLON #lessThan;
 
-lvalues: lvalue (COMMA lvalue)*;
+//lvalues: lvalue (COMMA lvalue)*;
 
 exp: exp AND exp #andExp
      | rexp #logicsExprs;
+
+exps: exp (COMMA exp)*;
 
 rexp: left=rexp op=(LESS_THAN | MORE_THAN | EQUAL | NOT_EQUAL)  right=aexp # LogicExp
       | aexp #basicsExprs;
@@ -64,4 +67,3 @@ lvalue: ID #id
        | lvalue OPEN_BRACKET exp CLOSE_BRACKET #idVector
        | lvalue ACCESSOR ID #acessorID;
 
-exps: exp (COMMA exp)*;
