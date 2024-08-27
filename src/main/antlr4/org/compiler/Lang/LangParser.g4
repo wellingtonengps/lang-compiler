@@ -4,15 +4,13 @@ options { tokenVocab=LangLexer; }
 
 prog: data* func* #program;
 
-data: DATA NAME_TYPE OPEN_CURLY_BRACER (decl)* CLOSE_CURLY_BRACER #dataDeclaration;
+data: DATA NAME_TYPE OPEN_CURLY_BRACER decl* CLOSE_CURLY_BRACER #dataDeclaration;
 
 decl: ID DOUBLE_COLON type SEMICOLON #varDeclaration;
 
-func: ID OPEN_PARENTESIS (params)? CLOSE_PARENTESIS (COLON type (COMMA type)*)? OPEN_CURLY_BRACER (cmd)* CLOSE_CURLY_BRACER #function;
+func: ID OPEN_PARENTESIS params? CLOSE_PARENTESIS (COLON type (COMMA type)*)? OPEN_CURLY_BRACER cmd* CLOSE_CURLY_BRACER #function;
 
 params: ID DOUBLE_COLON type (COMMA ID DOUBLE_COLON type)* #parametersFunction;
-//params: param (COMMA param)*;
-//param: ID DOUBLE_COLON type;
 
 type: type OPEN_BRACKET CLOSE_BRACKET #typeDeclaration
       | btype #bTypeCAll
@@ -25,9 +23,9 @@ btype: TYPE_INT #bTypeInt
       | NAME_TYPE #bTypeNameType
       ;
 
-cmd: OPEN_CURLY_BRACER (cmd)* CLOSE_CURLY_BRACER #commandsList
+cmd: OPEN_CURLY_BRACER cmd* CLOSE_CURLY_BRACER #commandsList
      | IF OPEN_PARENTESIS exp CLOSE_PARENTESIS cmd #if
-     | IF OPEN_PARENTESIS exp CLOSE_PARENTESIS ifcmd=cmd ELSE elsecmd=cmd #ifElse
+     | IF OPEN_PARENTESIS exp CLOSE_PARENTESIS cmd ELSE cmd #ifElse
      | ITERATE OPEN_PARENTESIS exp CLOSE_PARENTESIS cmd #iterate
      | READ lvalue SEMICOLON #read
      | PRINT exp SEMICOLON #print
@@ -35,7 +33,7 @@ cmd: OPEN_CURLY_BRACER (cmd)* CLOSE_CURLY_BRACER #commandsList
      | lvalue ATTRIBUTION exp SEMICOLON #attribution
      | ID OPEN_PARENTESIS exps? CLOSE_PARENTESIS (LESS_THAN lvalue (COMMA lvalue)* MORE_THAN)? SEMICOLON #functionCall;
 
-exp: exp AND exp #andOperation
+exp: <assoc=left> exp AND exp #andOperation
      | rexp #rexpCall;
 
 rexp: aexp LESS_THAN aexp #lessThan

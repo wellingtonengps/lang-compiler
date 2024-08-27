@@ -779,6 +779,8 @@ public class InterpreterVisitor extends Visitor{
             // é o operando da direita
             Object right = operands.pop();
             Object left = operands.pop();
+            System.out.println(right);
+            System.out.println(left);
             if (left instanceof Float || right instanceof Float) {
                 operands.push((Float) left * (Float) right);
             } else if (left instanceof Integer && right instanceof Integer) {

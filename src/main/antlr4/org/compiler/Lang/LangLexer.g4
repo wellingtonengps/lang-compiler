@@ -54,14 +54,14 @@ MULTILINE_COMMENT : '{-' .*? '-}' -> skip;
 NEWLINE           : ([\r\n]+ | [\n]+) -> skip ;
 WS                : [ \t]+ -> skip ;
 
-ID: [a-z][a-zA-Z0-9_]* ;
+ID: [a-z][a-zA-Z0-9_]*;
 NAME_TYPE: [A-Z][a-zA-Z0-9_]*;
 
 BOOLEAN   : TRUE | FALSE;
 NULL      :  '\'' '\\0' '\'' | 'null';
 //ID        : CHAR (CHAR | NUMBER | '_')* ;
 //TYPE      : UPPERCASE (ID)* ;
-FLOAT     : (NUMBER)* '.' (NUMBER)+ ;
+FLOAT     : [0-9]* '.' ([0-9] [0-9]*) ;
 INT       : (NUMBER)+ ;
 //LITERAL   : '\'' (CHAR | '\\n' | '\\t' | '\\\\') '\'';
 CHAR: ('\''([\u0000-\u0026]|[\u0028-\u005B]|[\u005D-\u007F])'\'')       // (000 - 127)(Menos o 27 => aspas simples ' e nem 97 => Contrabarra \ ) Captura todos os caracteres da tabela ASCII, conforme a especificação da linguagem

@@ -4,7 +4,7 @@ import java.io.File;
 
 public class TestInterpreter {
     private InterpreterAdaptor adp;
-    private String okSrcs = "src/main/java/org/compiler/Lang/interpreter/testes/semantica/certo/";
+    private String okSrcs = "src/test/testes/semantica/certo";
     private File f;
 
     public TestInterpreter(InterpreterAdaptor adp){
