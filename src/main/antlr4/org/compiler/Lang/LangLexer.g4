@@ -55,7 +55,7 @@ NEWLINE           : ([\r\n]+ | [\n]+) -> skip ;
 WS                : [ \t]+ -> skip ;
 
 ID: [a-z][a-zA-Z0-9_]* ;
-TYPE      : UPPERCASE (ID)* ;
+NAME_TYPE: [A-Z][a-zA-Z0-9_]*;
 
 BOOLEAN   : TRUE | FALSE;
 NULL      :  '\'' '\\0' '\'' | 'null';

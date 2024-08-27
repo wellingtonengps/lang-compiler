@@ -2,26 +2,27 @@ parser grammar LangParser;
 
 options { tokenVocab=LangLexer; }
 
-prog: data* func*;
+prog: data* func* #program;
 
-data: DATA TYPE OPEN_CURLY_BRACER (decl)* CLOSE_CURLY_BRACER;
+data: DATA NAME_TYPE OPEN_CURLY_BRACER (decl)* CLOSE_CURLY_BRACER #dataDeclaration;
 
-decl: ID DOUBLE_COLON type SEMICOLON;
+decl: ID DOUBLE_COLON type SEMICOLON #varDeclaration;
 
-func: ID OPEN_PARENTESIS (params)? CLOSE_PARENTESIS (COLON type (COMMA type)*)? OPEN_CURLY_BRACER (cmd)* CLOSE_CURLY_BRACER;
+func: ID OPEN_PARENTESIS (params)? CLOSE_PARENTESIS (COLON type (COMMA type)*)? OPEN_CURLY_BRACER (cmd)* CLOSE_CURLY_BRACER #function;
 
-params: ID DOUBLE_COLON type (COMMA ID DOUBLE_COLON type)*;
+params: ID DOUBLE_COLON type (COMMA ID DOUBLE_COLON type)* #parametersFunction;
 //params: param (COMMA param)*;
 //param: ID DOUBLE_COLON type;
 
-type: type OPEN_BRACKET CLOSE_BRACKET #typeVector
-      | btype #typeBase
+type: type OPEN_BRACKET CLOSE_BRACKET #typeDeclaration
+      | btype #bTypeCAll
       ;
 
-btype: TYPE_INT #typeInt
-      | TYPE_FLOAT #typeFloat
-      | TYPE_CHAR  #typeChar
-      | TYPE_BOOL #typeBool
+btype: TYPE_INT #bTypeInt
+      | TYPE_FLOAT #bTypeFloat
+      | TYPE_CHAR  #bTypeChar
+      | TYPE_BOOL #bTypeBool
+      | NAME_TYPE #bTypeNameType
       ;
 
 cmd: OPEN_CURLY_BRACER (cmd)* CLOSE_CURLY_BRACER #commandsList
@@ -30,43 +31,47 @@ cmd: OPEN_CURLY_BRACER (cmd)* CLOSE_CURLY_BRACER #commandsList
      | ITERATE OPEN_PARENTESIS exp CLOSE_PARENTESIS cmd #iterate
      | READ lvalue SEMICOLON #read
      | PRINT exp SEMICOLON #print
-     | RETURN exps SEMICOLON #return
-     | lvalue ATTRIBUTION exp SEMICOLON #assing
-     | ID OPEN_PARENTESIS (acessParams=exps)? CLOSE_PARENTESIS (LESS_THAN (COMMA acessReturn=lvalue)* MORE_THAN)? SEMICOLON #lessThan;
+     | RETURN exp (COMMA exp)* SEMICOLON #return
+     | lvalue ATTRIBUTION exp SEMICOLON #attribution
+     | ID OPEN_PARENTESIS exps? CLOSE_PARENTESIS (LESS_THAN lvalue (COMMA lvalue)* MORE_THAN)? SEMICOLON #functionCall;
 
-//lvalues: lvalue (COMMA lvalue)*;
+exp: exp AND exp #andOperation
+     | rexp #rexpCall;
 
-exp: exp AND exp #andExp
-     | rexp #logicsExprs;
+rexp: aexp LESS_THAN aexp #lessThan
+      |<assoc=left> rexp EQUAL aexp #equality
+      |<assoc=left> rexp NOT_EQUAL aexp #diffence
+      | aexp #aExpCall
+    ;
 
+aexp:  aexp PLUS mexp #additionOperation
+      | aexp MINUS mexp #substractionOperation
+      | mexp #mExpCall
+      ;
 
+mexp:  <assoc=left> mexp MULT sexp #multiplicationOperation
+     | <assoc=left> mexp DIV sexp  #divisonOperation
+     | <assoc=left> mexp MOD sexp #modularOperation
+     | sexp #sExpCall
+     ;
 
-rexp: left=rexp op=(LESS_THAN | MORE_THAN | EQUAL | NOT_EQUAL)  right=aexp # LogicExp
-      | aexp #basicsExprs;
-
-aexp:  left=aexp op=(PLUS|MINUS) right=mexp #PlusMinus
-      | mexp #moreExprs;
-
-mexp:  left=mexp op=(MULT|DIV|MOD) right=sexp #MultDivMod
-     | sexp #literalExprs;
-
-sexp:  NOT sexp #not
-     | MINUS sexp #minus
+sexp:  <assoc=right> NOT sexp #not
+     | <assoc=right> MINUS sexp #minus
      | TRUE #true
      | FALSE #false
      | NULL #null
-     | INT #int
-     | FLOAT #float
-     | CHAR #char
-     | pexp #acessorValue;
+     | INT #intergeNumber
+     | FLOAT #floatNumber
+     | CHAR #charLitteral
+     | pexp #pExpCall;
 
-pexp: lvalue #value
-     | OPEN_PARENTESIS exp CLOSE_PARENTESIS #parentesis
-     | NEW type (OPEN_BRACKET exps CLOSE_BRACKET)? #new
-     | ID OPEN_PARENTESIS (acessParams=exps)? CLOSE_PARENTESIS (OPEN_BRACKET acessReturn=exp CLOSE_BRACKET)? #functionCall;
+pexp: lvalue #pexpIdentifier
+     | <assoc=left> OPEN_PARENTESIS exp CLOSE_PARENTESIS #expParenthesis
+     | NEW type (OPEN_BRACKET exp CLOSE_BRACKET)? #typeInstanciate
+     | ID OPEN_PARENTESIS exps? CLOSE_PARENTESIS OPEN_BRACKET exp CLOSE_BRACKET #functionReturn;
 
-lvalue: ID #id
-       | lvalue OPEN_BRACKET exp CLOSE_BRACKET #idVector
-       | lvalue ACCESSOR ID #acessorID;
+lvalue: ID #identifier
+       | <assoc=left> lvalue OPEN_BRACKET exp CLOSE_BRACKET #arrayAccess
+       | <assoc=left> lvalue ACCESSOR ID #dataAccess;
 
-exps: exp (COMMA exp)*;
+exps: exp (COMMA exp)* #fCallParams;
