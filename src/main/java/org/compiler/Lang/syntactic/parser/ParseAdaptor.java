@@ -1,8 +1,6 @@
 package org.compiler.Lang.syntactic.parser;
 
-import org.compiler.Lang.interpreter.ast.*;
-
-import java.io.IOException;
+import org.compiler.Lang.syntactic.ast.SuperNode;
 
 
 // Adaptador para classe de parser. a Função parseFile deve retornar null caso o parser resulte em erro. 

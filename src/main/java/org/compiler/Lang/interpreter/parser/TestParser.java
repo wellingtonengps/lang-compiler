@@ -2,14 +2,12 @@ package org.compiler.Lang.interpreter.parser;
 
 import java.io.File;
 
-// Adaptador para classe de parser. a Função parseFile deve retornar null caso o parser resulte em erro. 
-
 public class TestParser {
-   private ParseAdaptor adp;
+   private LangParserImpl adp;
    private String okSrcs = "src/main/java/org/compiler/Lang/syntactic/testes/sintaxe/certo/";
    private File f;
    
-   public TestParser(ParseAdaptor adp){
+   public TestParser(LangParserImpl adp){
         this.adp = adp;
         f = new File(okSrcs);
         runOkTests();

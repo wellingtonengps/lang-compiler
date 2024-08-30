@@ -1,22 +1,23 @@
 package org.compiler.Lang.syntactic;
 
 import org.antlr.v4.runtime.*;
-import org.compiler.Lang.interpreter.VisitorAdapter;
-import org.compiler.Lang.interpreter.ast.SuperNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.compiler.Lang.LangLexer;
 import org.compiler.Lang.LangParser;
+
+
+import org.compiler.Lang.interpreter.VisitorAdapter;
+import org.compiler.Lang.interpreter.ast.SuperNode;
 import org.compiler.Lang.interpreter.ast.Node;
 import org.compiler.Lang.interpreter.parser.ParseAdaptor;
 
-import java.io.FileReader;
 import java.io.IOException;
 
 public class LangParserImpl implements ParseAdaptor {
 
     // Retorna null se encontrar erros de sintaxe no arquivo de entrada
     @Override
-    public SuperNode parseFile(String path) {
+    public SuperNode parseFile(String path){
         try {
             // Cria uma variavel que irá armazenar um charStream de ANTLR
             // a partir de um arquivo

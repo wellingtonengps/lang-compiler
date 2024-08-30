@@ -1,6 +1,7 @@
 package org.compiler.Lang.syntactic;
 
-import org.compiler.Lang.interpreter.parser.TestParser;
+import org.compiler.Lang.syntactic.ast.SuperNode;
+import org.compiler.Lang.syntactic.parser.TestParser;
 
 public class LangCompiler{
    // Recupera o nome base (sem extensão) de um arquivo.
@@ -47,11 +48,11 @@ public class LangCompiler{
               System.out.println("Para usar essa opção, especifique um nome de arquivo");
               return; 
           }
-          org.compiler.Lang.interpreter.ast.SuperNode result = langParser.parseFile(args[1]);
+          /*SuperNode result = langParser.parseFile(args[1]);
           if(result == null){
                System.err.println("Aborting due to syntax error(s)");
                System.exit(1);
-          }
+          }*/
           else if(args[0].equals("-i") ){
               //iv = new InterpreterVisitor();
               //result.accept(iv);
