@@ -64,24 +64,22 @@ public class Function extends Node{
     }
 
     @Override
-    public String toString() {
-        String s = (id != null ? id.toString() : "null") + "(";
-        s += (parameters != null ? parameters.toString() : "null");
-        if (returnTypes != null && returnTypes.size() > 0) {
+    public String toString(){
+        String s = id.toString() + "(";
+        s += parameters.toString();
+        if(returnTypes.size() > 0){
             s += ") : ";
-            for (int i = 0; i < returnTypes.size() - 1; i++) {
+            for(int i = 0; i < returnTypes.size() - 1; i++){
                 String typeAux = returnTypes.get(i).toString();
-                s += (typeAux != null ? typeAux.toString() : "null") + ", ";
+                s += typeAux.toString() + ", ";
             }
-            s += (returnTypes.get(returnTypes.size() - 1) != null ? returnTypes.get(returnTypes.size() - 1).toString() : "null");
-        } else {
+            s += returnTypes.get(returnTypes.size() - 1).toString();
+        }else{
             s += ")";
         }
         s += "{\n";
-        if (commands != null) {
-            for (Command command : commands) {
-                s += (command != null ? command.toString() : "null") + "\n";
-            }
+        for (Command command : commands) {
+            s += command.toString() + "\n";
         }
         s += " } ";
         return s;

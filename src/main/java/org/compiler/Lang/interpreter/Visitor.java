@@ -3,6 +3,7 @@ package org.compiler.Lang.interpreter;
 import org.compiler.Lang.interpreter.ast.*;
 
 public abstract class Visitor {
+
     // Partem do prog
     public abstract void visit(Program p);
 

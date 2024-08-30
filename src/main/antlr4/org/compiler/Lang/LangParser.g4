@@ -13,7 +13,7 @@ func: ID OPEN_PARENTESIS params? CLOSE_PARENTESIS (COLON type (COMMA type)*)? OP
 params: ID DOUBLE_COLON type (COMMA ID DOUBLE_COLON type)* #parametersFunction;
 
 type: type OPEN_BRACKET CLOSE_BRACKET #typeDeclaration
-      | btype #bTypeCAll
+      | btype #bTypeCall
       ;
 
 btype: TYPE_INT #bTypeInt
@@ -34,21 +34,21 @@ cmd: OPEN_CURLY_BRACER cmd* CLOSE_CURLY_BRACER #commandsList
      | ID OPEN_PARENTESIS exps? CLOSE_PARENTESIS (LESS_THAN lvalue (COMMA lvalue)* MORE_THAN)? SEMICOLON #functionCall;
 
 exp: <assoc=left> exp AND exp #andOperation
-     | rexp #rexpCall;
+     | rexp #rExpCall;
 
 rexp: aexp LESS_THAN aexp #lessThan
       |<assoc=left> rexp EQUAL aexp #equality
-      |<assoc=left> rexp NOT_EQUAL aexp #diffence
+      |<assoc=left> rexp NOT_EQUAL aexp #difference
       | aexp #aExpCall
     ;
 
 aexp:  aexp PLUS mexp #additionOperation
-      | aexp MINUS mexp #substractionOperation
+      | aexp MINUS mexp #subtractionOperation
       | mexp #mExpCall
       ;
 
 mexp:  <assoc=left> mexp MULT sexp #multiplicationOperation
-     | <assoc=left> mexp DIV sexp  #divisonOperation
+     | <assoc=left> mexp DIV sexp  #divisionOperation
      | <assoc=left> mexp MOD sexp #modularOperation
      | sexp #sExpCall
      ;
@@ -58,7 +58,7 @@ sexp:  <assoc=right> NOT sexp #not
      | TRUE #true
      | FALSE #false
      | NULL #null
-     | INT #intergeNumber
+     | INT #integerNumber
      | FLOAT #floatNumber
      | CHAR #charLitteral
      | pexp #pExpCall;

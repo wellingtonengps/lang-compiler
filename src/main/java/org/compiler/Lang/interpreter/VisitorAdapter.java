@@ -137,6 +137,12 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
         return parameters;
     }
 
+    @Override
+    public Node visitBTypeCall(BTypeCallContext ctx) {
+        // ----- Regra
+        // type: btype     # BTypeCall
+        return super.visitBTypeCall(ctx);
+    }
 
     @Override
     public Node visitTypeDeclaration(TypeDeclarationContext ctx) {
@@ -308,6 +314,12 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
         return fcall;
     }
 
+    @Override
+    public Node visitRExpCall(RExpCallContext ctx) {
+        // ----- Regra
+        // exp: rexp      # RExpCall
+        return super.visitRExpCall(ctx);
+    }
 
     @Override
     public Node visitAndOperation(AndOperationContext ctx) {
@@ -346,6 +358,15 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
         return new Equality(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), left, right);
     }
 
+    @Override
+    public Node visitDifference(DifferenceContext ctx) {
+        // ----- Regra
+        // rexp: <assoc=left> rexp DIFFERENCE aexp  # Difference
+        Expression left = (Expression) ctx.getChild(0).accept(this);
+        Expression right = (Expression) ctx.getChild(2).accept(this);
+
+        return new Difference(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), left, right);
+    }
 
     @Override
     public Node visitAdditionOperation(AdditionOperationContext ctx) {
@@ -357,7 +378,15 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
         return new Addition(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), left, right);
     }
 
+    @Override
+    public Node visitSubtractionOperation(SubtractionOperationContext ctx) {
+        // ----- Regra
+        // aexp: aexp MINUS mexp   # SubtractionOperation
+        Expression left = (Expression) ctx.getChild(0).accept(this);
+        Expression right = (Expression) ctx.getChild(2).accept(this);
 
+        return new Subtraction(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), left, right);
+    }
 
     @Override
     public Node visitMExpCall(MExpCallContext ctx) {
@@ -366,6 +395,15 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
         return super.visitMExpCall(ctx);
     }
 
+    @Override
+    public Node visitDivisionOperation(DivisionOperationContext ctx) {
+        // ----- Regra
+        // mexp: <assoc=left> mexp SLASH sexp   # DivisionOperation
+        Expression left = (Expression) ctx.getChild(0).accept(this);
+        Expression right = (Expression) ctx.getChild(2).accept(this);
+
+        return new Division(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), left, right);
+    }
 
     @Override
     public Node visitSExpCall(SExpCallContext ctx) {
@@ -384,7 +422,15 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
         return new Multiplication(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), left, right);
     }
 
+    @Override
+    public Node visitModularOperation(ModularOperationContext ctx) {
+        // ----- Regra
+        // mexp: <assoc=left> mexp PERCENT sexp # ModularOperation
+        Expression left = (Expression) ctx.getChild(0).accept(this);
+        Expression right = (Expression) ctx.getChild(2).accept(this);
 
+        return new Modular(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), left, right);
+    }
 
     @Override
     public Node visitNot(NotContext ctx) {
@@ -427,7 +473,12 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
         return new Null(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
     }
 
-
+    @Override
+    public Node visitIntegerNumber(IntegerNumberContext ctx) {
+        // ----- Regra
+        // sexp: INT   # IntegerNumber
+        return new IntegerNumber(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), Integer.parseInt(ctx.getChild(0).getText()));
+    }
 
     @Override
     public Node visitFloatNumber(FloatNumberContext ctx) {
@@ -563,61 +614,5 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
         }
         fcall.setExps(exps);
         return fcall;
-    }
-
-    @Override
-    public Node visitBTypeCAll(BTypeCAllContext ctx) {
-        // ----- Regra
-        // type: btype     # BTypeCall
-        return super.visitBTypeCAll(ctx);
-    }
-
-    @Override
-    public Node visitRexpCall(RexpCallContext ctx) {
-        // ----- Regra
-        // exp: rexp      # RExpCall
-        return super.visitRexpCall(ctx);
-    }
-
-    @Override
-    public Node visitDiffence(DiffenceContext ctx) {
-        return super.visitDiffence(ctx);
-    }
-
-    @Override
-    public Node visitSubstractionOperation(SubstractionOperationContext ctx) {
-        // ----- Regra
-        // aexp: aexp MINUS mexp   # SubtractionOperation
-        Expression left = (Expression) ctx.getChild(0).accept(this);
-        Expression right = (Expression) ctx.getChild(2).accept(this);
-
-        return new Subtraction(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), left, right);
-    }
-
-    @Override
-    public Node visitDivisonOperation(DivisonOperationContext ctx) {
-        // ----- Regra
-        // mexp: <assoc=left> mexp SLASH sexp   # DivisionOperation
-        Expression left = (Expression) ctx.getChild(0).accept(this);
-        Expression right = (Expression) ctx.getChild(2).accept(this);
-
-        return new Division(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), left, right);
-    }
-
-    @Override
-    public Node visitIntergeNumber(IntergeNumberContext ctx) {
-        // ----- Regra
-        // sexp: INT   # IntegerNumber
-        return new IntegerNumber(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), Integer.parseInt(ctx.getChild(0).getText()));
-    }
-
-    @Override
-    public Node visitModularOperation(ModularOperationContext ctx) {
-        // ----- Regra
-        // mexp: <assoc=left> mexp PERCENT sexp # ModularOperation
-        Expression left = (Expression) ctx.getChild(0).accept(this);
-        Expression right = (Expression) ctx.getChild(2).accept(this);
-
-        return new Modular(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), left, right);
     }
 }

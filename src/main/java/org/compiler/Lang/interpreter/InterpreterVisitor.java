@@ -56,6 +56,8 @@ public class InterpreterVisitor extends Visitor{
         System.out.println("\n----------------------------------\n");
     }
 
+    // Partem do prog
+
     @Override
     public void visit(Program p) {
         Node main = null;
@@ -68,7 +70,6 @@ public class InterpreterVisitor extends Visitor{
 
         for (Function f : p.getFunctions()) {
             funcs.put(f.getId(), f);
-            System.out.printf(f.getId());
             if (f.getId().equals("main")) {     // Verifica se tem a função main
                 main = f;
             }
@@ -81,6 +82,8 @@ public class InterpreterVisitor extends Visitor{
         main.accept(this);
     }
 
+    // Partem do data
+
     @Override
     public void visit(Data d) {
         if(debug){
@@ -91,10 +94,14 @@ public class InterpreterVisitor extends Visitor{
         }
     }
 
+    // Partem do decl
+
     @Override
     public void visit(Declaration d) {
 
     }
+
+    // Partem do func
 
     @Override
     public void visit(Function f) {
@@ -133,6 +140,8 @@ public class InterpreterVisitor extends Visitor{
         retMode = false;
     }
 
+    // Partem do params
+
     @Override
     public void visit(Parameters p) {
         try {
@@ -154,6 +163,8 @@ public class InterpreterVisitor extends Visitor{
         }
     }
 
+    // Partem do Type
+
     @Override
     public void visit(TypeArray t) {
         try {
@@ -171,6 +182,8 @@ public class InterpreterVisitor extends Visitor{
             throw new RuntimeException(" (" + t.getLine() + ", " + t.getColumn() + ") " + x.getMessage());
         }
     }
+
+    // Partem do btype
 
     @Override
     public void visit(TypeInt t) {
@@ -242,11 +255,6 @@ public class InterpreterVisitor extends Visitor{
     }
 
     @Override
-    public void visit(Type t) {
-
-    }
-
-    @Override
     public void visit(NameType n) {
         try {
             if (debug) {
@@ -276,6 +284,13 @@ public class InterpreterVisitor extends Visitor{
             throw new RuntimeException(" (" + n.getLine() + ", " + n.getColumn() + ") " + x.getMessage());
         }
     }
+
+    @Override
+    public void visit(Type t) {
+
+    }
+
+    // Partem do cmd
 
     @Override
     public void visit(Command c) {
@@ -618,6 +633,8 @@ public class InterpreterVisitor extends Visitor{
         }
     }
 
+    // Partem do exp
+
     @Override
     public void visit(And a) {
         try {
@@ -630,6 +647,8 @@ public class InterpreterVisitor extends Visitor{
             throw new RuntimeException(" (" + a.getLine() + ", " + a.getColumn() + ") " + x.getMessage());
         }
     }
+
+    // Partem do rexp
 
     @Override
     public void visit(LessThan l) {
@@ -730,6 +749,8 @@ public class InterpreterVisitor extends Visitor{
         }
     }
 
+    // Partem do aexp
+
     @Override
     public void visit(Addition a) {
         try {
@@ -770,6 +791,7 @@ public class InterpreterVisitor extends Visitor{
         }
     }
 
+    // Partem do mexp
     @Override
     public void visit(Multiplication m) {
         try {
@@ -779,8 +801,6 @@ public class InterpreterVisitor extends Visitor{
             // é o operando da direita
             Object right = operands.pop();
             Object left = operands.pop();
-            System.out.println(right);
-            System.out.println(left);
             if (left instanceof Float || right instanceof Float) {
                 operands.push((Float) left * (Float) right);
             } else if (left instanceof Integer && right instanceof Integer) {
@@ -833,6 +853,8 @@ public class InterpreterVisitor extends Visitor{
         }
     }
 
+    // Partem do sexp
+
     @Override
     public void visit(Not n) {
         try {
@@ -867,7 +889,7 @@ public class InterpreterVisitor extends Visitor{
     }
 
     @Override
-    public void visit(BooleanValue b) {
+    public void visit(BooleanValue b) { // True e False
         try {
             operands.push(b.getValue());
         } catch (Exception e) {
@@ -910,6 +932,8 @@ public class InterpreterVisitor extends Visitor{
             throw new RuntimeException(" (" + c.getLine() + ", " + c.getColumn() + ") " + x.getMessage());
         }
     }
+
+    // Partem do pexp
 
     @Override
     public void visit(PexpIdentifier i) {
@@ -1109,6 +1133,8 @@ public class InterpreterVisitor extends Visitor{
 
     }
 
+    // Partem do lvalue
+
     @Override
     public void visit(LValue l) {
 
@@ -1141,7 +1167,7 @@ public class InterpreterVisitor extends Visitor{
     }
 
     @Override
-    public void visit(DataAccess d)  {
+    public void visit(DataAccess d) {
         try {
             if (debug) {
                 // Imprime a função
@@ -1222,6 +1248,8 @@ public class InterpreterVisitor extends Visitor{
             throw new RuntimeException(" (" + a.getLine() + ", " + a.getColumn() + ") " + x.getMessage());
         }
     }
+
+    // Partem do exps
 
     @Override
     public void visit(FCallParams f) {
