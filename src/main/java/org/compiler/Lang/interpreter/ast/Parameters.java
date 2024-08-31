@@ -1,10 +1,7 @@
-/********************************************************
-* Trabalho de Teoria dos Compiladores(DCC045)(2021/1)   *
-*                                                       *
-* Projeto do Interpretador para a Linguagem Lang        *
-* Nome: Lucas Diniz da Costa -- Matricula: 201465524C   *
-*                                                       *
-*********************************************************/
+/*
+ * Gustavo De Angelis Bartholomeu (201935009)
+ * Wellington Pereira Silva (201935041)
+ */
 package org.compiler.Lang.interpreter.ast;
 
 import org.compiler.Lang.interpreter.Visitor;
@@ -55,6 +52,14 @@ public class Parameters extends Node {
 
     public List<Type> getType() {
         return type;
+    }
+    // Novo método para retornar os tipos como Strings
+    public List<String> getTypeAsStringList() {
+        List<String> typeAsStringList = new ArrayList<>();
+        for (Type t : this.type) {
+            typeAsStringList.add(t.toString()); // Converte cada Type para String
+        }
+        return typeAsStringList;
     }
 
     public void setType(List<Type> type) {

@@ -2,10 +2,10 @@ package org.compiler.Lang.syntactic;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
+
+
 import org.compiler.Lang.LangLexer;
 import org.compiler.Lang.LangParser;
-
-
 import org.compiler.Lang.interpreter.VisitorAdapter;
 import org.compiler.Lang.interpreter.ast.SuperNode;
 import org.compiler.Lang.interpreter.ast.Node;

@@ -76,4 +76,3 @@ NUMBER    : [0-9] ;
 UPPERCASE : [A-Z] ;
 LOWERCASE : [a-z] ;
 
-

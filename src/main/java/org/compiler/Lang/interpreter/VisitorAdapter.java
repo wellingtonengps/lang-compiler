@@ -85,6 +85,7 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
         );
     }
 
+
     @Override
     public Node visitFunction(FunctionContext ctx) {
         // ----- Regra
@@ -117,6 +118,66 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
         }
 
         return function;
+    }
+
+    /*
+    @Override
+    public Node visitFunction(FunctionContext ctx) {
+        // ----- Regra
+        // func: ID OPEN_PARENT params? CLOSE_PARENT (COLON type (COMMA type)*)?
+        //    OPEN_BRACES cmd* CLOSE_BRACES    # Function
+
+        // (COLON type (COMMA type)*)? -- Tipos de Retorno da função
+
+
+        int line = ctx.getStart().getLine();
+        int column = ctx.getStart().getCharPositionInLine();
+
+        // Criando uma lista para armazenar os tipos dos parâmetros
+        List<String> paramTypes = new ArrayList<>();
+
+        if (ctx.params() != null) {
+            Parameters parameters = (Parameters) ctx.params().accept(this);
+            paramTypes = parameters.getTypeAsStringList(); // Adicione os tipos dos parâmetros à lista
+        }
+
+        // Gerando o identificador único da função
+        String functionName = ctx.getChild(0).getText();
+        String functionId = generateFunctionId(functionName, paramTypes);
+
+        Function function = new Function(line, column, functionId);
+
+        if (ctx.params() != null) {
+            function.setParameters((Parameters) ctx.params().accept(this));
+            function.setId(functionId); // Define o identificador único para a função
+        }
+
+        // Definindo os tipos de retorno da função
+        for (int i = 0; i < ctx.type().size(); i++) {
+            ParseTree childTree = ctx.type(i);
+            function.addReturnTypes((Type) childTree.accept(this));
+        }
+
+        // Adicionando os comandos dentro do corpo da função
+        for (int i = 0; i < ctx.cmd().size(); i++) {
+            ParseTree childTree = ctx.cmd(i);
+            function.addCommand((Command) childTree.accept(this));
+        }
+
+        return function;
+    }*/
+
+    private String generateFunctionId(String functionName, List<String> paramTypes) {
+        StringBuilder idBuilder = new StringBuilder(functionName);
+        idBuilder.append("(");
+        for (int i = 0; i < paramTypes.size(); i++) {
+            idBuilder.append(paramTypes.get(i));
+            if (i < paramTypes.size() - 1) {
+                idBuilder.append(",");
+            }
+        }
+        idBuilder.append(")");
+        return idBuilder.toString();
     }
 
     @Override
@@ -292,10 +353,65 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
                 (LValue) ctx.lvalue().accept(this), (Expression) ctx.exp().accept(this));
     }
 
+
+    /*
     @Override
     public Node visitFunctionCall(FunctionCallContext ctx) {
         // ----- Regra
         // cmd: ID OPEN_PARENT exps? CLOSE_PARENT (LESS_THAN lvalue (COMMA lvalue)* GREATER_THAN)? SEMI   # FunctionCall
+
+        FunctionCall fcall = new FunctionCall(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.getChild(0).getText() + "()");
+
+        // Verifica se há parametros na função
+        if (ctx.exps() != null) {
+            FCallParams exps = (FCallParams) ctx.exps().accept(this);
+
+            // Cria uma lista para armazenar os tipos dos parâmetros
+            List<String> paramTypes = new ArrayList<>();
+
+
+
+
+            // Adiciona os tipos dos parâmetros na lista
+            for (Expression exp : exps.getExps()) {
+                String teste = ((Object) exp).getClass().getName();
+                if(teste == "org.compiler.Lang.interpreter.ast.IntegerNumber"){
+                    paramTypes.add("Int");
+                }if(teste == "org.compiler.Lang.interpreter.ast.FloatNumber"){
+                    paramTypes.add("Float");
+                }if(teste == "org.compiler.Lang.interpreter.ast.CharLitteral"){
+                    paramTypes.add("Char");
+                }if(teste == "org.compiler.Lang.interpreter.ast.BooleanValuel"){
+                    paramTypes.add("Bool");
+                }
+
+                //paramTypes.add("Int");
+                //paramTypes.add("Float"); // Supondo que cada expressão tenha um método getType()
+            }
+
+            // Obtém o nome da função
+            String functionName = ctx.getChild(0).getText();
+
+            String functionId = generateFunctionId( functionName, paramTypes);
+
+            fcall = new FunctionCall(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), functionId, exps);
+        }
+
+        for (int i = 0; i < ctx.lvalue().size() && this.shouldVisitNextChild(ctx, this.defaultResult()); i++) {
+            ParseTree childTree = ctx.lvalue(i);
+            fcall.addLValue((LValue) this.aggregateResult(this.defaultResult(), childTree.accept(this)));
+        }
+
+        return fcall;
+    }*/
+
+
+
+    @Override
+    public Node visitFunctionCall(FunctionCallContext ctx) {
+        // ----- Regra
+        // cmd: ID OPEN_PARENT exps? CLOSE_PARENT (LESS_THAN lvalue (COMMA lvalue)* GREATER_THAN)? SEMI   # FunctionCall
+
 
         FunctionCall fcall = new FunctionCall(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.getChild(0).getText());
 

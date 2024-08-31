@@ -1,10 +1,7 @@
-/********************************************************
-* Trabalho de Teoria dos Compiladores(DCC045)(2021/1)   *
-*                                                       *
-* Projeto do Interpretador para a Linguagem Lang        *
-* Nome: Lucas Diniz da Costa -- Matricula: 201465524C   *
-*                                                       *
-*********************************************************/
+/*
+ * Gustavo De Angelis Bartholomeu (201935009)
+ * Wellington Pereira Silva (201935041)
+ */
 package org.compiler.Lang.interpreter.ast;
 
 import org.compiler.Lang.interpreter.Visitor;
@@ -27,4 +24,5 @@ public abstract class Expression extends Node {
     public Expression getExpression() {
         return expression;
     }
+
 }

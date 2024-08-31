@@ -70,6 +70,10 @@ public class InterpreterVisitor extends Visitor{
 
         for (Function f : p.getFunctions()) {
             funcs.put(f.getId(), f);
+            /*if (f.getId().equals("main()")) {     // Verifica se tem a função main
+                main = f;
+            }*/
+
             if (f.getId().equals("main")) {     // Verifica se tem a função main
                 main = f;
             }
