@@ -70,13 +70,13 @@ public class InterpreterVisitor extends Visitor{
 
         for (Function f : p.getFunctions()) {
             funcs.put(f.getId(), f);
-            /*if (f.getId().equals("main()")) {     // Verifica se tem a função main
-                main = f;
-            }*/
-
-            if (f.getId().equals("main")) {     // Verifica se tem a função main
+            if (f.getId().equals("main_")) {     // Verifica se tem a função main
                 main = f;
             }
+            /*
+            if (f.getId().equals("main")) {     // Verifica se tem a função main
+                main = f;
+            }*/
         }
 
         if (main == null) {
@@ -594,6 +594,7 @@ public class InterpreterVisitor extends Visitor{
 
             // Pega a função correspondente
             Function function = funcs.get(f.getId());
+
 
             // Garante a existencia da função
             if (f != null) {

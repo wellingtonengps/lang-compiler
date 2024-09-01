@@ -16,24 +16,27 @@ public class Function extends Node{
      * OPEN_BRACES cmd* CLOSE_BRACES    # Function
      */
     private String id;
+    private int hashCode;
     private Parameters parameters;
     private List<Type> returnTypes;     // Tipos de retorno da função
     private List<Command> commands;     // Corpo da função
 
-    public Function(int line, int column, String id, Parameters parameters){
+    public Function(int line, int column, String id, Parameters parameters, int hashCode){
         super(line, column);
         this.id = id;
         this.parameters = parameters;
         this.returnTypes = new ArrayList<Type>();
         this.commands = new ArrayList<Command>();
+        this.hashCode = hashCode;
     }
 
-    public Function(int line, int column, String id){
+    public Function(int line, int column, String id, int hashCode){
         super(line, column);
         this.id = id;
         this.parameters = new Parameters(line, column);
         this.returnTypes = new ArrayList<Type>();
         this.commands = new ArrayList<Command>();
+        this.hashCode = hashCode;
     }
 
     public String getId() {
@@ -96,6 +99,14 @@ public class Function extends Node{
 
     public void setReturnTypes(List<Type> returnTypes) {
         this.returnTypes = returnTypes;
+    }
+
+    public int getHashCode() {
+        return hashCode;
+    }
+
+    public void setHashCode(int hashCode) {
+        this.hashCode = hashCode;
     }
 
     @Override

@@ -85,7 +85,7 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
         );
     }
 
-
+    /*
     @Override
     public Node visitFunction(FunctionContext ctx) {
         // ----- Regra
@@ -118,7 +118,7 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
         }
 
         return function;
-    }
+    }*/
 
     /*
     @Override
@@ -129,6 +129,43 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
 
         // (COLON type (COMMA type)*)? -- Tipos de Retorno da função
 
+        int hashCodeFunction = ctx.hashCode();
+
+        int line = ctx.getStart().getLine();
+        int column = ctx.getStart().getCharPositionInLine();
+
+        Function function = new Function(line, column, ctx.getChild(0).getText(), ctx.hashCode());  // Nome da função
+
+        Parameters parameters;
+
+        if (ctx.params() != null) { // Checa se há parametros na função
+            parameters = (Parameters) ctx.params().accept(this);
+            function.setParameters(parameters);
+        }
+
+        for (int i = 0; i < (ctx.type().size()) && this.shouldVisitNextChild(ctx, this.defaultResult()); i++) {
+            ParseTree childTree = ctx.type(i);
+            function.addReturnTypes((Type) this.aggregateResult(this.defaultResult(), childTree.accept(this)));
+        }
+
+        for (int i = 0; i < (ctx.cmd().size()) && this.shouldVisitNextChild(ctx, this.defaultResult()); i++) {
+            ParseTree childTree = ctx.cmd(i);
+            function.addCommand((Command) this.aggregateResult(this.defaultResult(), childTree.accept(this)));
+        }
+
+        return function;
+    }*/
+
+
+    @Override
+    public Node visitFunction(FunctionContext ctx) {
+        // ----- Regra
+        // func: ID OPEN_PARENT params? CLOSE_PARENT (COLON type (COMMA type)*)?
+        //    OPEN_BRACES cmd* CLOSE_BRACES    # Function
+
+        // (COLON type (COMMA type)*)? -- Tipos de Retorno da função
+
+
 
         int line = ctx.getStart().getLine();
         int column = ctx.getStart().getCharPositionInLine();
@@ -137,15 +174,18 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
         List<String> paramTypes = new ArrayList<>();
 
         if (ctx.params() != null) {
+            ctx.params().getChildCount();
             Parameters parameters = (Parameters) ctx.params().accept(this);
             paramTypes = parameters.getTypeAsStringList(); // Adicione os tipos dos parâmetros à lista
         }
 
         // Gerando o identificador único da função
         String functionName = ctx.getChild(0).getText();
-        String functionId = generateFunctionId(functionName, paramTypes);
+        String functionId = generateFunctionId(functionName, paramTypes.size());
 
-        Function function = new Function(line, column, functionId);
+        Function function = new Function(line, column, functionId, ctx.hashCode());
+
+
 
         if (ctx.params() != null) {
             function.setParameters((Parameters) ctx.params().accept(this));
@@ -165,19 +205,15 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
         }
 
         return function;
-    }*/
+    }
 
-    private String generateFunctionId(String functionName, List<String> paramTypes) {
-        StringBuilder idBuilder = new StringBuilder(functionName);
-        idBuilder.append("(");
-        for (int i = 0; i < paramTypes.size(); i++) {
-            idBuilder.append(paramTypes.get(i));
-            if (i < paramTypes.size() - 1) {
-                idBuilder.append(",");
-            }
+
+    private String generateFunctionId(String functionName, int paramTypesSize) {
+        if(paramTypesSize != 0){
+            return functionName + "_" + paramTypesSize;
         }
-        idBuilder.append(")");
-        return idBuilder.toString();
+
+        return functionName + "_";
     }
 
     @Override
@@ -354,7 +390,7 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
     }
 
 
-    /*
+
     @Override
     public Node visitFunctionCall(FunctionCallContext ctx) {
         // ----- Regra
@@ -366,35 +402,41 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
         if (ctx.exps() != null) {
             FCallParams exps = (FCallParams) ctx.exps().accept(this);
 
-            // Cria uma lista para armazenar os tipos dos parâmetros
-            List<String> paramTypes = new ArrayList<>();
 
-
-
-
-            // Adiciona os tipos dos parâmetros na lista
-            for (Expression exp : exps.getExps()) {
-                String teste = ((Object) exp).getClass().getName();
-                if(teste == "org.compiler.Lang.interpreter.ast.IntegerNumber"){
-                    paramTypes.add("Int");
-                }if(teste == "org.compiler.Lang.interpreter.ast.FloatNumber"){
-                    paramTypes.add("Float");
-                }if(teste == "org.compiler.Lang.interpreter.ast.CharLitteral"){
-                    paramTypes.add("Char");
-                }if(teste == "org.compiler.Lang.interpreter.ast.BooleanValuel"){
-                    paramTypes.add("Bool");
-                }
-
-                //paramTypes.add("Int");
-                //paramTypes.add("Float"); // Supondo que cada expressão tenha um método getType()
-            }
+            int paramTypesSize = exps.getExps().size();;
 
             // Obtém o nome da função
             String functionName = ctx.getChild(0).getText();
 
-            String functionId = generateFunctionId( functionName, paramTypes);
+            String functionId = generateFunctionId( functionName, paramTypesSize);
 
             fcall = new FunctionCall(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), functionId, exps);
+        }
+
+        for (int i = 0; i < ctx.lvalue().size() && this.shouldVisitNextChild(ctx, this.defaultResult()); i++) {
+            ParseTree childTree = ctx.lvalue(i);
+            fcall.addLValue((LValue) this.aggregateResult(this.defaultResult(), childTree.accept(this)));
+        }
+
+        return fcall;
+    }
+
+    /*
+    @Override
+    public Node visitFunctionCall(FunctionCallContext ctx) {
+        // ----- Regra
+        // cmd: ID OPEN_PARENT exps? CLOSE_PARENT (LESS_THAN lvalue (COMMA lvalue)* GREATER_THAN)? SEMI   # FunctionCall
+
+
+        int hashCodeFunctionCall = ctx.hashCode();
+
+        FunctionCall fcall = new FunctionCall(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.getChild(0).getText());
+
+        // Verifica se há parametros na função
+        if (ctx.exps() != null) {
+            FCallParams exps = (FCallParams) ctx.exps().accept(this);
+
+            fcall = new FunctionCall(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.getChild(0).getText(), exps);
         }
 
         for (int i = 0; i < ctx.lvalue().size() && this.shouldVisitNextChild(ctx, this.defaultResult()); i++) {
@@ -406,7 +448,7 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
     }*/
 
 
-
+    /*
     @Override
     public Node visitFunctionCall(FunctionCallContext ctx) {
         // ----- Regra
@@ -428,7 +470,7 @@ public class VisitorAdapter extends LangParserBaseVisitor<Node> {
         }
 
         return fcall;
-    }
+    }*/
 
     @Override
     public Node visitRExpCall(RExpCallContext ctx) {
