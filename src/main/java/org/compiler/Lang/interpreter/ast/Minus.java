@@ -7,11 +7,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class Minus extends Expression {
-    /**
-     * ---- Regra
-     * sexp: <assoc=right> MINUS sexp   # Minus
-    */
-    
+
     private Expression exp;
 
     public Minus(int line, int column, Expression exp) {

@@ -4,7 +4,6 @@
  */
 package org.compiler.Lang.interpreter.ast;
 
-import org.compiler.Lang.interpreter.Visitor;
 
 public class ObjectDefault extends LValue{
     // Objeto Auxiliar para o hashmap de variaveis Instanciadas

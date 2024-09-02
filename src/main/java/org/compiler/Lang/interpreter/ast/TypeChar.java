@@ -7,10 +7,6 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class TypeChar extends Type{
-    /**
-     * ---- Regra
-     * btype: CHAR_TYPE     # BTypeChar
-    */
 
     public TypeChar(int line, int column){
         super(line, column);

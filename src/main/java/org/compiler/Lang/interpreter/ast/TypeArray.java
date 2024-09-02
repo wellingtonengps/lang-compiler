@@ -7,11 +7,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class TypeArray extends Type{
-    /**
-     * ---- Regra
-     * type: type OPEN_BRACKET CLOSE_BRACKET   # TypeDeclaration   
-     * -- tipo de array. Exemplo: Int[]
-     */
+
     private Type type;
 
     public TypeArray(int line, int column, Type type) {

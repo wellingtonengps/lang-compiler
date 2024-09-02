@@ -4,7 +4,6 @@
  */
 package org.compiler.Lang.interpreter.ast;
 
-import org.compiler.Lang.interpreter.Visitor;
 
 public class BinOP extends Expression{
     // Protected para os filhos poderem acessar

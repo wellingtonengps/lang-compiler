@@ -9,21 +9,6 @@ import org.compiler.Lang.interpreter.Visitor;
 import java.util.List;
 
 public class Data extends Node{
-    /*************************************************************************
-     *              Regra                                                    *
-     *      data: DATA_TYPE NAME_TYPE OPEN_BRACES decl* CLOSE_BRACES         *
-     *                  # DataDeclaration                                    *
-     *                                                                       *
-     * Expressa os tipos de dados novos(data 'Nome') criados pelo usuário    *
-    **************************************************************************/
-    /**
-     * Exemplo:
-     * data Teste{
-     * -- Declarações
-     *  2 :: Int;
-     *  'a' :: Char;
-     * }
-     */
 
     private String nameType;            // Captura o nome de tipo
     private List<Declaration> declarations;    // Declarações

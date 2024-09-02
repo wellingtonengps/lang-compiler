@@ -7,11 +7,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class LessThan extends BinOP {
-    /**
-     * ---- Regra
-     * rexp: aexp LESS_THAN aexp   # LessThan
-    */
-    
+
     public LessThan(int line, int column, Expression left, Expression right) {
         super(line, column, left, right);
     }

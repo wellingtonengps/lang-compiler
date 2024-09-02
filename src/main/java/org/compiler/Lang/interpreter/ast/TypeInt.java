@@ -7,10 +7,6 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class TypeInt extends Type{
-    /**
-     * ---- Regra
-     * btype: INT_TYPE     # BTypeInt
-    */
     public TypeInt(int line, int column){
         super(line, column);
     }    

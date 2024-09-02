@@ -6,14 +6,7 @@ package org.compiler.Lang.interpreter.ast;
 
 import org.compiler.Lang.interpreter.Visitor;
 
-public class NameType extends Type{ 
-// public class NameType extends Expression{ 
-    /**
-     * ---- Regra
-     * btype: NAME_TYPE     # BTypeNameType
-     * 
-    */
-
+public class NameType extends Type{
     private String val;
 
     public NameType (int line, int column, String val){

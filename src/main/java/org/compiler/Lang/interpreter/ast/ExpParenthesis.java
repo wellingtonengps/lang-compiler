@@ -7,10 +7,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class ExpParenthesis extends Expression {
-    /**
-     * ---- Regra
-     * pexp: NEW type (OPEN_BRACKET exp CLOSE_BRACKET)?    # TypeInstanciate 
-    */
+
     private Expression exp;
 
     public ExpParenthesis (int line, int column, Expression exp){

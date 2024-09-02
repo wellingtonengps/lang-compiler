@@ -7,10 +7,6 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class Modular extends BinOP{
-    /**
-     * ---- Regra
-     * mexp: <assoc=left> mexp PERCENT sexp # ModularOperation
-    */
 
     public Modular(int line, int column, Expression left, Expression right){
         super(line, column, left, right);

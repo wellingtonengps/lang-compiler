@@ -10,10 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommandsList extends Command{
-    /**
-     * ---- Regra
-     * cmd: OPEN_BRACES cmd* CLOSE_BRACES      # CommandsList
-    */
 
     private List<Command> commands;
 

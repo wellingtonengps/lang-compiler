@@ -10,10 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Parameters extends Node {
-    /**
-     * ---- Regra
-     * params: ID DOUBLE_COLON type (COMMA ID DOUBLE_COLON type)*  # ParametersFunction
-    */
 
     private List<String> id;
     private List<Type> type;

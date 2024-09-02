@@ -7,10 +7,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class TypeInstanciate extends Expression {
-    /**
-     * ---- Regra
-     * pexp: NEW type (OPEN_BRACKET exp CLOSE_BRACKET)?    # TypeInstanciate 
-    */
+
     private Expression exp;         // Array
     private Type type;              // Outros tipos como Int, Float, Char
     private String dataName;        // Caso for tipo data

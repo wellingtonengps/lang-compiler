@@ -7,10 +7,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class TypeFloat extends Type{
-    /**
-     * ---- Regra
-     * btype: FLOAT_TYPE    # BTypeFloat
-    */
+
     public TypeFloat(int line, int column){
         super(line, column);
     }    

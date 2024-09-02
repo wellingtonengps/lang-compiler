@@ -10,10 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Return extends Command {
-    /**
-     * ---- Regra
-     * cmd: RETURN exp (COMMA exp)* SEMI  # Return
-    */
 
     private List<Expression> exps = new ArrayList<>();
 

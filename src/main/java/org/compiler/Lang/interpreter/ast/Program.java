@@ -10,13 +10,7 @@ import java.util.List;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class Program extends Node{
-    /*********************************************
-     *              Regra                        *
-     *      Program -> data* func*               *
-     *                                           *
-     * Armazena a lista de nós do tipo data e do *
-     * tipo função                               *
-    **********************************************/
+
     private List<Data> datas;
     private List<Function> functions;
 

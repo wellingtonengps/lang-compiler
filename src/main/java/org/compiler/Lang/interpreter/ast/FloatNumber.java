@@ -7,10 +7,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class FloatNumber extends LValue{
-    /**
-     * ---- Regra
-     * sexp: FLOAT  # FloatNumber
-    */
+
     private Float value;
     
     public FloatNumber(int line, int column, Float value){

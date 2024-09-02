@@ -7,11 +7,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class Print extends Command {
-    /**
-     * ---- Regra
-     * cmd: PRINT exp SEMI    # Print
-    */
-    
+
     private Expression exp;
 
     public Print (int line, int column, Expression exp){

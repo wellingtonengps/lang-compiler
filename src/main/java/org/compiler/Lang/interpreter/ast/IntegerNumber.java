@@ -7,10 +7,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class IntegerNumber extends LValue{
-    /**
-     * ---- Regra
-     * sexp: INT   # IntegerNumber
-    */
+
     private Integer value;
     
     public IntegerNumber(int line, int column, Integer value){

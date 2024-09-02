@@ -9,11 +9,7 @@ import org.compiler.Lang.interpreter.Visitor;
 import java.util.List;
 
 public class FCallParams extends Expression{
-    /**
-     * ---- Regra
-     * exps: exp (COMMA exp)*      # FCallParams
-     * -- Parametros na chamada da função
-    */
+
     private List<Expression> exps;
 
     public FCallParams(int line, int column, List<Expression> exps){

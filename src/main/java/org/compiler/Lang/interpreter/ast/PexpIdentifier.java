@@ -7,11 +7,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class PexpIdentifier extends LValue {
-    /**
-     * ---- Regra
-     * pexp: lvalue    # PexpIdentifier       // Chama lValue e o ID
-    */
-    
+
     private String id;
 
     public PexpIdentifier (int line, int column, String id){

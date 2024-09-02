@@ -7,10 +7,6 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class Equality extends BinOP{
-    /**
-     * ---- Regra
-     *  rexp: <assoc=left> rexp EQUALITY aexp    # Equality
-    */
 
     public Equality(int line, int column, Expression left, Expression right){
         super(line, column, left, right);

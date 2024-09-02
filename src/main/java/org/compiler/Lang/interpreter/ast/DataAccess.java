@@ -7,10 +7,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class DataAccess extends LValue{
-    /**
-     * ---- Regra
-     * lValue: <assoc=left> lvalue DOT ID     # DataAccess
-    */
+
     private LValue lvalue;
     private String id;              // Atributo do objeto
     private String dataId;          // Nome do objeto

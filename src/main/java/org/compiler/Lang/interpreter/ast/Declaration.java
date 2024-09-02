@@ -7,12 +7,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class Declaration extends Node{
-    /*********************************************
-     *              Regra                        *
-     *      decl: ID DOUBLE_COLON type SEMI      *
-     *                                           *
-     * Armazena o id e o tipo da variavel        *
-    **********************************************/
+
     String id;   // Nome da variavel
     Type type;   // Tipo da variavel: Int, Char, Bool,...
 

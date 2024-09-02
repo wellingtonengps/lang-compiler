@@ -6,11 +6,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class Not extends Expression {
-    /**
-     * ---- Regra
-     * sexp:<assoc=right> EXCLAMATION sexp # Not
-    */
-    
+
     private Expression exp;
 
     public Not(int line, int column, Expression exp) {

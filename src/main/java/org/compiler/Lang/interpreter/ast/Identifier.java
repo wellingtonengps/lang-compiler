@@ -7,12 +7,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class Identifier extends LValue {
-    /**
-     * ---- Regra
-     * lvalue: ID      # Identifier
-     *
-    */
-    
+
     private String id;
 
     public Identifier (int line, int column, String id){

@@ -10,11 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Function extends Node{
-    /**
-     * ---- Regra
-     * func: ID OPEN_PARENT params? CLOSE_PARENT (COLON type (COMMA type)*)?
-     * OPEN_BRACES cmd* CLOSE_BRACES    # Function
-     */
+
     private String id;
     private int hashCode;
     private Parameters parameters;

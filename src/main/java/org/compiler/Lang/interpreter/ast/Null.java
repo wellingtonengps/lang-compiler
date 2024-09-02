@@ -7,11 +7,6 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class Null extends Expression {
-    /**
-     * ---- Regra
-     * sexp: NULL  # Null
-     *
-    */
 
     private String value = null;
     

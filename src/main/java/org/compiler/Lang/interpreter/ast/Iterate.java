@@ -7,10 +7,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class Iterate extends Command {
-    /**
-     * ---- Regra
-     * cmd: ITERATE OPEN_PARENT exp CLOSE_PARENT cmd  # Iterate
-    */
+
     private String it;          // nome do iterate
     private Expression exp;
     private Command cmd;

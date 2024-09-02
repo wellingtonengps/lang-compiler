@@ -7,11 +7,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class IfElse extends Command {
-    /**
-     * ---- Regra
-     * cmd: IF OPEN_PARENT exp CLOSE_PARENT cmd ELSE cmd  # IfElse
-     *
-    */
+
     private Expression exp;
     private Command cmd;
     private Command elseCmd;

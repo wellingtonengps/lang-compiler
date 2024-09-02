@@ -7,11 +7,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class Read extends Command {
-    /**
-     * ---- Regra
-     * cmd: READ lvalue SEMI  # Read
-    */
-    
+
     private LValue lvalue;
 
     public Read (int line, int column, LValue lvalue){

@@ -8,8 +8,6 @@ import org.compiler.Lang.interpreter.Visitable;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class Node extends SuperNode implements Visitable {
-
-
     // Linha e coluna do nó com base no texto do arquivo de entrada passado
     private int line;
     private int column;

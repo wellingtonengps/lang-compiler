@@ -10,13 +10,7 @@ import java.util.List;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class FunctionCall extends Command{
-    /**
-     * ---- Regra
-     * cmd: ID OPEN_PARENT exps? CLOSE_PARENT (LESS_THAN lvalue 
-     * (COMMA lvalue)* GREATER_THAN)? SEMI   # FunctionCall
-     * 
-     * Exemplo: divmod(5, 2)<q, r>;     // Será retornada 2 valores e armazenados na variavel q e r
-    */
+
     private String id;
     private FCallParams functionCallParams;             //'exps' => Parâmetros da função
     private List<LValue> lvalues = new ArrayList<>();       // Variaveis que serão retornadas

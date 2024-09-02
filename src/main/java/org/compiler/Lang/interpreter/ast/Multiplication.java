@@ -7,10 +7,6 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class Multiplication extends BinOP{
-    /**
-     * ---- Regra
-     * mexp:<assoc=left> mexp TIMES sexp   # MultiplicationOperation
-    */
 
     public Multiplication(int line, int column, Expression left, Expression right){
         super(line, column, left, right);

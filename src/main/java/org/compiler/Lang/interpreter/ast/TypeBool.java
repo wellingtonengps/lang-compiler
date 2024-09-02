@@ -7,10 +7,7 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class TypeBool extends Type{
-    /**
-     * ---- Regra
-     * btype: BOOL_TYPE     # BTypeBool
-    */
+
     public TypeBool(int line, int column){
         super(line, column);
     }    

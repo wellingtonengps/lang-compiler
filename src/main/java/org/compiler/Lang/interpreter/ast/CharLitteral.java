@@ -7,10 +7,6 @@ package org.compiler.Lang.interpreter.ast;
 import org.compiler.Lang.interpreter.Visitor;
 
 public class CharLitteral extends LValue{
-    /**
-     * ---- Regra
-     * sexp: CHAR  # CharLitteral
-    */
 
     private char value; 
     private String originalValue;   // String pega pelo token sem o tratamento
