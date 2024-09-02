@@ -1,3 +1,8 @@
+/*
+ * Gustavo De Angelis Bartholomeu (201935009)
+ * Wellington Pereira Silva (201935041)
+ */
+
 package org.compiler.Lang.interpreter;
 
 import org.compiler.Lang.interpreter.ast.Node;
@@ -14,7 +19,7 @@ public class LangCompiler {
 
             System.out.println(" -bs : Executa uma bateria de testes sintáticos");
             System.out.println(" -bsm : Executa uma bateria de testes no interpretador");
-            // System.out.println(" -bty : Executa uma bateria de testes no sistemas de tipos");
+            System.out.println(" -bty : Executa uma bateria de testes no sistemas de tipos");
 
             System.out.println(" -pp: Pretty print program.");
             System.out.println(" -tp: Verificar tipos e imprimir o ambiente de tipos");
@@ -60,9 +65,6 @@ public class LangCompiler {
 
                 // Aceita o nó e caminha na árvore
                 ((Node)result).accept(interpreter);               // Passa o node criado e testa o interpretador
-
-                // Imprime o ambiente criado pelo interpretador
-                interpreter.debugMode();            // ((InterpreterVisitor)iv).printEnv();
             } else if (args[0].equals("-ii")) {
                 // iv = new InteractiveInterpreterVisitor();
                 // result.accept(iv);

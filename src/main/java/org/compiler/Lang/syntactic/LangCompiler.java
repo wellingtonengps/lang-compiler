@@ -1,10 +1,13 @@
+/*
+ * Gustavo De Angelis Bartholomeu (201935009)
+ * Wellington Pereira Silva (201935041)
+ * */
+
 package org.compiler.Lang.syntactic;
 
-import org.compiler.Lang.syntactic.ast.SuperNode;
 import org.compiler.Lang.syntactic.parser.TestParser;
 
 public class LangCompiler{
-   // Recupera o nome base (sem extensão) de um arquivo.
    public static void main(String[] args){
        if( args.length < 1 ){
           System.out.println("Lang compiler v 0.0.1 - Maio de 2020");
@@ -25,12 +28,7 @@ public class LangCompiler{
           
        }
        try{
-
-           //LangLexerInit lexer = new LangLexerInit(args);
-
            LangParserImpl langParser = new LangParserImpl();
-           //langParser.parseFile(args[0]);
-	   //ParseAdaptor langParser = null;
           if(args[0].equals("-bs") ){
               System.out.println("Executando bateria de testes sintáticos:");
               TestParser tp = new TestParser(langParser);

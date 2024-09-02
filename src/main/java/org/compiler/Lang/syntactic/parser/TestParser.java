@@ -1,3 +1,8 @@
+/*
+ * Gustavo De Angelis Bartholomeu (201935009)
+ * Wellington Pereira Silva (201935041)
+ * */
+
 package org.compiler.Lang.syntactic.parser;
 
 import org.compiler.Lang.syntactic.LangParserImpl;
@@ -6,7 +11,7 @@ import java.io.*;
 
 public class TestParser {
    private LangParserImpl adp;
-   private String okSrcs = "src/main/java/org/compiler/Lang/syntactic/testes/sintaxe/certo/";
+   private String okSrcs = "src/main/java/org/compiler/Lang/testes/sintaxe/certo";
    private File f;
    
    public TestParser(LangParserImpl adp){
